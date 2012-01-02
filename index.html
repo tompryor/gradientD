@@ -19,6 +19,7 @@
 			require(["dojo/_base/kernel", "dojo/_base/loader", "dojo/query", "dojo/on", "dojo/dom", "dojo/ready", "dojo/parser", "dijit/form/Form", "dijit/form/TextBox", "dijit/form/Button"], function(dojo, query, on, dom, ready) {
 				dojo.registerModulePath("dvia", "../../js/dvia");
 				dojo.require("dvia.widgets.gradientDesigner.GradientDesigner");
+				dojo.require("dvia.widgets.gradientDesigner.gradientSlider.GradientSlider");
 				dojo.ready(function() {
 					init();
 				});

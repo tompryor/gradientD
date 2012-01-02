@@ -3,7 +3,8 @@ define([
 	"dijit/_Widget",
 	"dojox/dtl/_Templated",
 	"dojo/fx/easing",
-	"dojo/NodeList-traverse"
+	"dojo/NodeList-traverse",
+	"dijit/form/HorizontalSlider"
 ], function(declare, _Widget, _Templated){
 
 /*=====
@@ -17,9 +18,11 @@ define([
 //		Hash marks for `dijit.form.HorizontalSlider`
 
 
-return declare("dvia.widgets.gradientDesigner.GradientDesigner", [_Widget, _Templated], {
+var GradientDesigner = declare("dvia.widgets.gradientDesigner.GradientDesigner", [_Widget, _Templated], {
 
 	_dijitTemplateCompat : true,
+	    widgetsInTemplate: true,
+
 	templateString : dojo.cache("dvia.widgets.gradientDesigner", "html/gradientDesigner.html"),
 	ef : dojo.fx.easing["quadInOut"],
 	
@@ -59,5 +62,7 @@ return declare("dvia.widgets.gradientDesigner.GradientDesigner", [_Widget, _Temp
 
 
 });
+
+return GradientDesigner;
 
 });
