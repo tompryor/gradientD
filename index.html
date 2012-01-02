@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html dir="ltr">
+	<head>
+		<title>Gradient Designer Widget</title>
+		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dijit/themes/claro/claro.css"/>
+		<!--
+		<script type="text/javascript">
+		// when we're using a version of dojo that's hosted on a cdn, we
+		// need to specify a baseUrl, which is the URL on which all
+		// module paths are based. here, we say that the baseUrl is the
+		// location of the index.html file itself; then we say that modules
+		// in the "dvia" namespace will be found in the js/dvia dir, relative
+		// to the baseUrl.
+
+		var djConfig = {
+		isDebug : false,
+		parseOnLoad : true,
+		baseUrl : './',
+		modulePaths : {
+		'dvia' : 'js/dvia'
+		}
+		};
+		</script>
+		-->
+		<!--
+		uncomment this block to use a local dojo.js; note that you must
+		run the setup script at util/setup.sh in order for this to work.
+		note also that you'll need to remove the script tags that are currently
+		being used
+		-->
+		<script>
+			var _dbpDev = true;
+			dojoConfig = _dbpDev ? {
+				// when we use a local version of dojo, we don't need to specify
+				// a baseUrl like we do when we use a cdn-hosted dojo. the base
+				// url is set to be the location of the dojo.js script itself.
+				// we do, however, have to tell dojo where to find modules in
+				// non-dojo namespaces. for the "dvia" namespace, we indicate the
+				// location of the dvia directory relative to dojo.js.
+				parseOnLoad : true,
+				modulePaths : {
+					dvia : "../../js/dvia"
+				}
+			} : {};
+
+		</script>
+		<!-- <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dojo/dojo.xd.js" type="text/javascript"></script> -->
+		<script src="dojo-release-1.7.1-src/dojo/dojo.js" type="text/javascript"></script>
+		<!-- this stays the same regardless of whether we're using a hosted dojo.js or a local version -->
+		<script>
+			dojo.require("dvia.ExampleClass");
+			dojo.require("dvia.widgets.gradientDesigner.GradientDesigner");
+			//Now set up a linkage so that the store can be reloaded.
+			dojo.addOnLoad(function() {
+				init();
+			});
+			function init() {
+				console.debug("Ready");
+				var exampleClass = new dvia.ExampleClass();
+			}
+		</script>
+	</head>
+	<body class=" claro ">
+		
+		<div data-dojo-type="dvia.widgets.gradientDesigner.GradientDesigner"></div>
+		
+	</body>
+</html>
+<!-- see this for more info on dojo scaffolding http://blog.rebeccamurphey.com/scaffolding-a-buildable-dojo-application -->
