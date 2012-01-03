@@ -12,8 +12,7 @@ define(["dojo/_base/declare", // declare
 "dojo/query", // query
 "dijit/registry", // registry.findWidgets
 "dijit/focus", // focus.focus()
-"dijit/typematic", "dijit/form/Button", "dijit/form/_FormValueWidget", "dijit/_Container", "dojo/_base/connect", "dojo/number", "dojo/dom-style"], function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domStyle, keys, lang, has, Moveable, Mover, query, registry, focus, typematic, Button, _FormValueWidget, _Container, connect, number, domStyle) {
-
+"dijit/typematic", "dijit/form/Button", "dijit/form/_FormValueWidget", "dijit/_Container", "dojo/_base/connect", "dojo/number", "dojo/dom-construct", "dojo/_base/window", "dojo/dom-class"], function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domStyle, keys, lang, has, Moveable, Mover, query, registry, focus, typematic, Button, _FormValueWidget, _Container, connect, number, ctr, win, domClass) {
 
 	/*=====
 	var _Widget = dijit._Widget;
@@ -32,7 +31,8 @@ define(["dojo/_base/declare", // declare
 		default1 : null,
 		default2 : null,
 		focusedNode : null,
-
+		_newHandel : null,
+		handles : [],
 		//templateString : template,
 
 		templateString : dojo.cache("dvia.widgets.gradientDesigner.gradientSlider", "html/gradientSlider.html"),
@@ -74,7 +74,6 @@ define(["dojo/_base/declare", // declare
 			// this._getCurrentTile();
 
 		},
-		
 		_onKeyPress : function(/*Event*/e) {
 			console.debug("AAA");
 			if(this.disabled || this.readOnly || e.altKey || e.ctrlKey || e.metaKey) {
@@ -92,7 +91,6 @@ define(["dojo/_base/declare", // declare
 			}
 			event.stop(e);
 		},
-		
 		_onHandleClick : function(e) {
 			console.debug("handle clicked", e.target.id);
 			this.focusedNode = e.target;
@@ -108,10 +106,10 @@ define(["dojo/_base/declare", // declare
 			event.stop(e);
 		},
 		_onMouseMove : function(mover, leftTop) {
-			// console.debug("mouse moved mover", mover.node);
+			// console.debug("mouse moved mover", mover);
 			// console.debug("mouse moved leftTop", leftTop);
-			var handelLeft = (leftTop.l / 3) - 6;
-			var handelValueDisplay = dojo.query(".handel-value", mover.node.id)[0];
+			var handelLeft = (leftTop.l / 8) - 2;
+			var handelValueDisplay = dojo.query(".handleValue", mover.node)[0];
 			//console.debug("mouse moved update value", handelValueDisplay);
 			handelValueDisplay.innerHTML = dojo.number.round(handelLeft);
 			// console.debug("mouse moved handelLeft", dojo.number.round(handelLeft));
@@ -124,42 +122,80 @@ define(["dojo/_base/declare", // declare
 		init : function() {
 			console.debug("gradientSlider init");
 			// make the default left handle draggable
-			this.default1 = new dojo.dnd.move.parentConstrainedMoveable("default1", {
+			this.default1 = new dojo.dnd.move.parentConstrainedMoveable(this.default1, {
 				area : "content",
 				within : true
 			});
 			// attach to the dnd onMove event
 			connect.connect(this.default1, "onMove", this, "_onMouseMove");
-			
+			// make it the current focus
+			this.focusedNode = this.default1;
+
 			// make the default right handle draggable
-			this.default2 = new dojo.dnd.move.parentConstrainedMoveable("default2", {
+			this.default2 = new dojo.dnd.move.parentConstrainedMoveable(this.default2, {
 				area : "content",
 				within : true
 			});
-			
-			this.moveHandel(this.default2, 783);
-			
+
+			this.moveHandel(this.default2, 812);
+
 			// attach to the dnd onMove event
 			connect.connect(this.default2, "onMove", this, "_onMouseMove");
 
+			// collect all our handles in an array
+			this.handles.push(this.default1);
+			this.handles.push(this.default2);
+
+			console.debug("all our handles", this.handles);
 		},
-		
 		shift : function(dir, key) {
 			console.debug("shift dir", dir);
 			console.debug("shift key", key);
 		},
-		
-		moveHandel: function(handel, leftPos){
-			
-			
+		moveHandel : function(handel, leftPos) {
+
 			domStyle.set(handel.node, "left", leftPos + "px");
-			
+
 			console.debug("moveHandel left", domStyle.get(handel.node, "left"));
 			console.debug("moveHandel left", leftPos);
 
+		},
+		_onSliderClick : function(e) {
+			// console.debug("Slider Click", e.clientX);
+			// console.debug("Focus Node", this.focusedNode);
+
+			// get a reference to my clone node
+			var n = query(".clone", this.sliderBar)[0];
+
+			// create 1 clone of this node and append it to the sliderBar
+			var myClone = ctr.place(lang.clone(n), this.sliderBar);
+
+			// make it moveable
+			var handel = new dojo.dnd.move.parentConstrainedMoveable(myClone, {
+				area : "content",
+				within : true
+			});
+
+			// position it
+			this.moveHandel(handel, e.clientX - 10);
+
+			var handelValueDisplay = dojo.query(".handleValue", myClone)[0];
+			handelValueDisplay.innerHTML = dojo.number.round((e.clientX / 8) - 5);
+
+			// attach to the dnd onMove event
+			connect.connect(handel, "onMove", this, "_onMouseMove");
+
+			// add our new handles to the hands array
+			this.handles.push(handel);
+			console.debug("all our handles", this.handles);
+
+			// reveal the new node in the UI
+			domClass.remove(myClone, "clone");
+
+			// console.debug("here is the clone", myClone);
+
 		}
 	});
-
 
 	return GradientDesigner;
 

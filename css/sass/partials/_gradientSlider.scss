@@ -14,10 +14,10 @@
     height: 20px;
     margin: 0;
     padding: 0;
-    width: 787px;
+    width: 816px;
 }
 
-.arrow-up {
+.arrowUp {
     border-bottom: 5px solid #2F2F2F;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
@@ -28,8 +28,13 @@
     width: 0;
 }
 
-.handel-value {
+.handleValue {
     position: relative;
     text-align: center;
     top: -28px;  
+}
+
+.clone{
+  display: none;
+  
 }
