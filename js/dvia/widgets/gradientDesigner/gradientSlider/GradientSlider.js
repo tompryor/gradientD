@@ -295,10 +295,26 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 		
 		removeThisHandle: function(handle){
 			console.debug("remove this handle",handle);
+			var handleIndex = domAttr.get(handle, "data-index");
+			this._removeHandleFromList(handleIndex);
+			console.debug("remove this handleIndex",handleIndex);
+			
 			domConstruct.destroy(handle);
 
 			
 			
+		},
+		
+		_removeHandleFromList: function(handleIndex){
+			this.handles.splice(handleIndex, 1);
+			var handlesLength = this.handles.length;
+			for(var i=0; i<handlesLength; i++){
+				var handle = this.handles[i].node;
+				domAttr.set(handle, "data-index", i);
+				console.debug("current handle in list ", handle);
+			}
+			
+			console.debug("handles", this.handles);
 		},
 		
 		_onColorPickerChange: function(colorValue){
