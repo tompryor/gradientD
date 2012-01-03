@@ -12,7 +12,16 @@ define(["dojo/_base/declare", // declare
 "dojo/query", // query
 "dijit/registry", // registry.findWidgets
 "dijit/focus", // focus.focus()
-"dijit/typematic", "dijit/form/Button", "dijit/form/_FormValueWidget", "dijit/_Container", "dojo/_base/connect", "dojo/number", "dojo/dom-construct", "dojo/_base/window", "dojo/dom-class"], function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domStyle, keys, lang, has, Moveable, Mover, query, registry, focus, typematic, Button, _FormValueWidget, _Container, connect, number, ctr, win, domClass) {
+"dijit/typematic", 
+"dijit/form/Button", 
+"dijit/form/_FormValueWidget", 
+"dijit/_Container", 
+"dojo/_base/connect", 
+"dojo/number", 
+"dojo/dom-construct", 
+"dojo/_base/window", 
+"dojo/dom-class"], 
+function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domStyle, keys, lang, has, Moveable, Mover, query, registry, focus, typematic, Button, _FormValueWidget, _Container, connect, number, ctr, win, domClass) {
 
 	/*=====
 	var _Widget = dijit._Widget;
@@ -33,6 +42,7 @@ define(["dojo/_base/declare", // declare
 		focusedNode : null,
 		_newHandel : null,
 		handles : [],
+		colorPickerActive: false,
 		//templateString : template,
 
 		templateString : dojo.cache("dvia.widgets.gradientDesigner.gradientSlider", "html/gradientSlider.html"),
@@ -164,6 +174,13 @@ define(["dojo/_base/declare", // declare
 			// console.debug("Slider Click", e.clientX);
 			// console.debug("Focus Node", this.focusedNode);
 
+			if(this.colorPickerActive) {
+				console.debug("colorPickerActive",this.colorPickerActive)
+				return;
+			}else{
+				console.debug("colorPickerActive",this.colorPickerActive)
+			}
+
 			// get a reference to my clone node
 			var n = query(".clone", this.sliderBar)[0];
 
@@ -204,7 +221,45 @@ define(["dojo/_base/declare", // declare
 		},
 		
 		_onDblClick: function(e) {
-			console.debug("dbl click");
+			console.debug("dbl click", e.target);
+			
+			var targetHandle = e.target;
+			
+			var targetHandleLeftPosition = domStyle.get(targetHandle, "left");
+			// move it off of the handle
+			targetHandleLeftPosition = targetHandleLeftPosition + 20;
+			// domStyle.set(handel.node, "left", leftPos + "px");
+			console.debug("dbl click target left pos ", targetHandleLeftPosition);
+			
+			// show colorPicker at target postion
+			console.debug("colorPicker", this.colorPicker.domNode)
+			
+			domStyle.set(this.colorPicker.domNode, "left", targetHandleLeftPosition + "px");
+			domStyle.set(this.closeColorPickerX, "left", targetHandleLeftPosition + 292 + "px");
+			
+			console.debug("this.closeColorPickerX",this.closeColorPickerX);
+			domClass.toggle(this.closeColorPickerX, "hide");
+			domClass.toggle(this.colorPicker.domNode, "hide");
+			
+			if(domClass.contains(this.colorPicker.domNode, "hide")){
+				// alert("has")
+				this.colorPickerActive = false;
+			}else{
+				this.colorPickerActive = true;
+			}
+		},
+		
+		_onCloseColorPicker: function(e) {
+			this._closeColorPicker();
+								event.stop(e);
+
+		},
+		
+		_closeColorPicker: function(){
+			domClass.toggle(this.colorPicker.domNode, "hide");
+			domClass.toggle(this.closeColorPickerX, "hide");
+			this.colorPickerActive = false;
+
 		}
 	});
 
