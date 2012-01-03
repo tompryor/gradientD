@@ -20,8 +20,9 @@ define(["dojo/_base/declare", // declare
 "dojo/number", 
 "dojo/dom-construct", 
 "dojo/_base/window", 
-"dojo/dom-class"], 
-function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domStyle, keys, lang, has, Moveable, Mover, query, registry, focus, typematic, Button, _FormValueWidget, _Container, connect, number, ctr, win, domClass) {
+"dojo/dom-class",
+"dojo/dom-attr"], 
+function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domStyle, keys, lang, has, Moveable, Mover, query, registry, focus, typematic, Button, _FormValueWidget, _Container, connect, number, ctr, win, domClass, domAttr) {
 
 	/*=====
 	var _Widget = dijit._Widget;
@@ -43,6 +44,8 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 		_newHandel : null,
 		handles : [],
 		colorPickerActive: false,
+		currentColor: "#fff",
+		
 		//templateString : template,
 
 		templateString : dojo.cache("dvia.widgets.gradientDesigner.gradientSlider", "html/gradientSlider.html"),
@@ -151,6 +154,13 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 
 			// attach to the dnd onMove event
 			connect.connect(this.default2, "onMove", this, "_onMouseMove");
+			
+			// set their colors
+			domAttr.set(this.default1.node, "data-color", "#fff");
+			domStyle.set(this.default1.node, "backgroundColor", "#fff");
+
+			domAttr.set(this.default2.node, "data-color", "#000");
+			domStyle.set(this.default2.node, "backgroundColor", "#000");
 
 			// collect all our handles in an array
 			this.handles.push(this.default1);
@@ -186,6 +196,8 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 
 			// create 1 clone of this node and append it to the sliderBar
 			var myClone = ctr.place(lang.clone(n), this.sliderBar);
+			this.focusedNode = myClone;
+
 
 			// make it moveable
 			var handel = new dojo.dnd.move.parentConstrainedMoveable(myClone, {
@@ -197,7 +209,8 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			this.moveHandel(handel, e.clientX - 10);
 
 			var handelValueDisplay = dojo.query(".handleValue", myClone)[0];
-			handelValueDisplay.innerHTML = dojo.number.round((e.clientX / 8) - 5);
+			var currentPos = dojo.number.round((e.clientX / 8) - 5);
+			handelValueDisplay.innerHTML = currentPos;
 
 			// attach to the dnd onMove event
 			connect.connect(handel, "onMove", this, "_onMouseMove");
@@ -208,6 +221,16 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			// attach to the dom ondblclick event
 			connect.connect(myClone, "ondblclick", this, "_onDblClick");
 
+			// how many handles do we have already
+			var currentHandleIndex = this.handles.length;
+			console.debug("we have this many handles", currentHandleIndex);
+			
+			domAttr.set(myClone, "data-index", currentHandleIndex);
+			domAttr.set(myClone, "data-pos", currentPos);
+			domAttr.set(myClone, "data-color", this.currentColor);
+
+// 			this.colorPicker.domNode.value = this.currentColor;
+			domStyle.set(myClone, "backgroundColor", this.currentColor);
 
 			// add our new handles to the hands array
 			this.handles.push(handel);
@@ -221,10 +244,18 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 		},
 		
 		_onDblClick: function(e) {
-			console.debug("dbl click", e.target);
+			console.debug("dbl click", e);
+			// if altKe remove this handle
+			if(e.altKey){
+				this.removeThisHandle(e.target);
+				return;
+			}
+			
+			// this.colorPicker.value = this.currentColor;
 			
 			var targetHandle = e.target;
-			
+			this.focusedNode = targetHandle;
+
 			var targetHandleLeftPosition = domStyle.get(targetHandle, "left");
 			// move it off of the handle
 			targetHandleLeftPosition = targetHandleLeftPosition + 20;
@@ -260,6 +291,19 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			domClass.toggle(this.closeColorPickerX, "hide");
 			this.colorPickerActive = false;
 
+		},
+		
+		removeThisHandle: function(handle){
+			console.debug("remove this handle",handle);
+		},
+		
+		_onColorPickerChange: function(colorValue){
+			console.debug("colorPicker value changed ",colorValue);
+			console.debug("update this nodes color ",this.focusedNode);
+			domAttr.set(this.focusedNode, "data-color", colorValue);
+			domStyle.set(this.focusedNode, "backgroundColor", colorValue);
+			this.currentColor = colorValue;
+			
 		}
 	});
 
