@@ -1,18 +1,18 @@
 <div>
 	<div class="sliderBar" data-dojo-attach-event="press:_onSliderClick" data-dojo-attach-point="sliderBar">
-		<div class="moveable" data-dojo-attach-point="default1" data-dojo-attach-event="press:_onHandleClick" role="slider">
+		<div class="moveable" data-dojo-attach-point="default1" data-dojo-attach-event="press:_onHandleClick,ondblclick:_onDblClick" role="slider">
 			<div class="arrowUp"></div>
 			<div class="handleValue">
 				0
 			</div>
 		</div>
-		<div class="moveable" data-dojo-attach-point="default2" data-dojo-attach-event="press:_onHandleClick" role="slider">
+		<div class="moveable" data-dojo-attach-point="default2" data-dojo-attach-event="press:_onHandleClick,ondblclick:_onDblClick" role="slider">
 			<div class="arrowUp"></div>
 			<div class="handleValue">
 				100
 			</div>
 		</div>
-		<div class="moveable clone" data-dojo-attach-event="press:_onHandleClick" role="slider">
+		<div class="moveable clone" role="slider">
 			<div class="arrowUp"></div>
 			<div class="handleValue">
 				0

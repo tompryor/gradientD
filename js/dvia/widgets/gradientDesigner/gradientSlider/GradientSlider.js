@@ -106,7 +106,7 @@ define(["dojo/_base/declare", // declare
 			event.stop(e);
 		},
 		_onMouseMove : function(mover, leftTop) {
-			// console.debug("mouse moved mover", mover);
+			//console.debug("mouse moved mover", mover);
 			// console.debug("mouse moved leftTop", leftTop);
 			var handelLeft = (leftTop.l / 8) - 2;
 			var handelValueDisplay = dojo.query(".handleValue", mover.node)[0];
@@ -184,6 +184,13 @@ define(["dojo/_base/declare", // declare
 
 			// attach to the dnd onMove event
 			connect.connect(handel, "onMove", this, "_onMouseMove");
+			
+			// attach to the dom onclick event
+			connect.connect(myClone, "onclick", this, "_onHandleClick");
+
+			// attach to the dom ondblclick event
+			connect.connect(myClone, "ondblclick", this, "_onDblClick");
+
 
 			// add our new handles to the hands array
 			this.handles.push(handel);
@@ -194,6 +201,10 @@ define(["dojo/_base/declare", // declare
 
 			// console.debug("here is the clone", myClone);
 
+		},
+		
+		_onDblClick: function(e) {
+			console.debug("dbl click");
 		}
 	});
 
