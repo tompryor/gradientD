@@ -16,7 +16,7 @@ define(["dojo/_base/declare", // declare
 		_dijitTemplateCompat : true,
 		widgetsInTemplate : true,
 		templateString : dojo.cache("dvia.widgets.gradientDesigner", "html/gradientDesigner.html"),
-		ef : dojo.fx.easing["quadInOut"],
+		//ef : dojo.fx.easing["quadInOut"],
 
 		//Any initialization code would go here in the constructor. dijit._Widget and
 		//dijit._Templated do not have parameters in their constructors, so
