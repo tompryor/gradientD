@@ -81,6 +81,9 @@ button, .button {
 /* line 20, sass/partials/_gradientDesigner.scss */
 pre.prettyprint {
   padding: 14px;
+  background-color: #efefef;
+  color: #fff;
+  margin-left: 25px;
 }
 
 /* line 1, sass/partials/_gradientSlider.scss */
