@@ -2,7 +2,8 @@
 <html dir="ltr">
 	<head>
 		<title>Gradient Designer Widget - Dojo AMD</title>
-		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.1/dijit/themes/claro/claro.css"/>
+        <link rel="stylesheet" type="text/css" href="css/master.css"/>
+        	
 		<!-- Using a local copy of dojo + AMD pattern -->
 		<script>
 			var _dbpDev = true;
@@ -19,7 +20,7 @@
 			require(["dojo/_base/kernel", "dojo/_base/loader", "dojo/query", "dojo/on", "dojo/dom", "dojo/ready", "dojo/parser", "dijit/form/Form", "dijit/form/TextBox", "dijit/form/Button"], function(dojo, query, on, dom, ready) {
 				dojo.registerModulePath("dvia", "../../js/dvia");
 				dojo.require("dvia.widgets.gradientDesigner.GradientDesigner");
-				dojo.require("dvia.widgets.gradientDesigner.gradientSlider.GradientSlider");
+				// dojo.require("dvia.widgets.gradientDesigner.gradientSlider.GradientSlider");
 				dojo.ready(function() {
 					init();
 				});

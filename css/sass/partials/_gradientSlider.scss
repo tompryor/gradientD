@@ -1,0 +1,35 @@
+.moveable {
+    background: none repeat scroll 0 0 #FFFFBF;
+    border: 1px solid black;
+    cursor: pointer;
+    height: 17px;
+    margin: 0;
+    padding: 0;
+    width: 20px;
+    position: absolute;
+}
+.sliderBar {
+    background: none repeat scroll 0 0 #BFECFF;
+    border: 10px solid lightblue;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    width: 787px;
+}
+
+.arrow-up {
+    border-bottom: 5px solid #2F2F2F;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    height: 0;
+    left: 32%;
+    position: relative;
+    top: -6px;
+    width: 0;
+}
+
+.handel-value {
+    position: relative;
+    text-align: center;
+    top: -28px;  
+}
