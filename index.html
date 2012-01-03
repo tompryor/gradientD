@@ -2,8 +2,9 @@
 <html dir="ltr">
 	<head>
 		<title>Gradient Designer Widget - Dojo AMD</title>
-        <link rel="stylesheet" type="text/css" href="css/master.css"/>
-        	
+		<link href="js/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" />
+		<script type="text/javascript" src="js/google-code-prettify/prettify.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/master.css"/>
 		<!-- Using a local copy of dojo + AMD pattern -->
 		<script>
 			var _dbpDev = true;
@@ -25,9 +26,11 @@
 				// dojo.require("dvia.widgets.gradientDesigner.gradientSlider.GradientSlider");
 				dojo.ready(function() {
 					init();
+					// addEventListener('load', function (event) { prettyPrint() }, false);
+					// prettyPrint();
+
 				});
 			});
-
 			function init() {
 				console.debug("Ready");
 			}
@@ -37,4 +40,3 @@
 		<div data-dojo-type="dvia.widgets.gradientDesigner.GradientDesigner"></div>
 	</body>
 </html>
-

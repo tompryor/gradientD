@@ -67,6 +67,22 @@ button, .button {
   width: 795px;
 }
 
+/* line 9, sass/partials/_gradientDesigner.scss */
+.gdContainer {
+  float: left;
+  margin-right: 30px;
+}
+
+/* line 14, sass/partials/_gradientDesigner.scss */
+.codePreview {
+  float: left;
+}
+
+/* line 20, sass/partials/_gradientDesigner.scss */
+pre.prettyprint {
+  padding: 14px;
+}
+
 /* line 1, sass/partials/_gradientSlider.scss */
 .moveable {
   background: none repeat scroll 0 0 #FFFFBF;

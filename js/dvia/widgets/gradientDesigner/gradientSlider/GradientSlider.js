@@ -34,7 +34,8 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 	// summary:
 	//		Hash marks for `dijit.form.HorizontalSlider`
 
-	var GradientDesigner = declare("dvia.widgets.gradientDesigner.gradientSlider.GradientSlider", [_Widget, _Templated], {
+
+	var gradientSlider = declare("dvia.widgets.gradientDesigner.gradientSlider.GradientSlider", [_Widget, _Templated], {
 
 		_dijitTemplateCompat : true,
 		widgetsInTemplate : true,
@@ -46,7 +47,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 		colorPickerActive: false,
 		currentColor: "#fff",
 		gradientDirection: "top",
-		vendorPrefixs: ["linear-gradient", "-moz-linear-gradient",, "-webkit-linear-gradient", "-o-linear-gradient", "-ms-linear-gradient"],
+		vendorPrefixs: ["-moz-linear-gradient", "-webkit-linear-gradient", "-o-linear-gradient", "-ms-linear-gradient", "linear-gradient"],
 		
 		//templateString : template,
 
@@ -61,6 +62,8 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 		constructor : function() {
 			console.debug("1. in gradientSlider constructor");
 			//this.ef = dojo.fx.easing["quadInOut"];
+			
+
 
 		},
 		//Inherited from dijit._Widget and called just before template
@@ -189,6 +192,8 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			this.handles.push(this.default2);
 
 			this.createGradientFromHandles();
+			dojo.subscribe("/dnd/move/stop", this, "updateCodePreview");
+			this.updateCodePreview();
 
 			// console.debug("all our handles", this.handles);
 		},
@@ -261,7 +266,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			// console.debug("all our handles", this.handles);
 
 			this.createGradientFromHandles();
-
+			this.updateCodePreview();
 			// reveal the new node in the UI
 			domClass.remove(myClone, "clone");
 
@@ -347,6 +352,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			
 			// console.debug("handles", this.handles);
 			this.createGradientFromHandles();
+			this.updateCodePreview();
 		},
 		
 		_onColorPickerChange: function(colorValue){
@@ -356,6 +362,8 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			domStyle.set(this.focusedNode, "backgroundColor", colorValue);
 			this.currentColor = colorValue;
 			this.createGradientFromHandles();
+			this.updateCodePreview();
+
 		},
 		
 		
@@ -390,22 +398,34 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			// console.debug("colorStops ", colorStops);
 			// console.debug("newGradientRule ", newGradientRule);
 			
-			var styleRule = ".gradientPreview { \r";
+			this.styleRule = ".gradientPreview { \r";
 			
 			var vendorPrefixsLength = this.vendorPrefixs.length;
 			for(var i = 0; i<vendorPrefixsLength; i++){
-				styleRule += "background: " +  this.vendorPrefixs[i] + newGradientRule + ";\r";
+				this.styleRule += "  background: " +  this.vendorPrefixs[i] + newGradientRule + ";\r";
 			}
 			
-			styleRule += "}\r";
+			this.styleRule += "}\r";
 			// domConstruct.empty(this.gradientPreviewStyle);
 			this.gradientPreviewStyle.innerHTML = "";
-			this.gradientPreviewStyle.innerHTML = styleRule;
+			this.gradientPreviewStyle.innerHTML = this.styleRule;
 
+
+		},
+		
+		updateCodePreview: function() {
+			var codePreview = dojo.query(".prettyprint")[0];
+			console.debug("codePreview", codePreview);
+			// var currentPosition = dojo.number.round(handelLeft);
+			codePreview.innerHTML = this.styleRule;
+			prettyPrint();
 
 		}
+
 	});
 
-	return GradientDesigner;
+	return gradientSlider;
+	
+
 
 });
