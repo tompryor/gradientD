@@ -90,7 +90,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 
 		},
 		_onKeyPress : function(/*Event*/e) {
-			console.debug("AAA");
+			// console.debug("AAA");
 			if(this.disabled || this.readOnly || e.altKey || e.ctrlKey || e.metaKey) {
 				return;
 			}
@@ -107,7 +107,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			event.stop(e);
 		},
 		_onHandleClick : function(e) {
-			console.debug("handle clicked", e.target.id);
+			// console.debug("handle clicked", e.target.id);
 			this.focusedNode = e.target;
 
 			if(this.disabled || this.readOnly) {
@@ -133,7 +133,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			
 			// whats it's index in the array so i can update it's object pos property
 			var currentHandleIndex = domAttr.get(mover.node, "data-index");
-			console.debug("xxx this handles index is ", currentHandleIndex);
+			// console.debug("xxx this handles index is ", currentHandleIndex);
 
 			this.handles[currentHandleIndex].pos = currentPosition;
 			
@@ -146,7 +146,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 
 		},
 		_onMouseUp : function(e) {
-			console.debug("mouse up", e);
+			// console.debug("mouse up", e);
 
 		},
 		init : function() {
@@ -190,18 +190,18 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 
 			this.createGradientFromHandles();
 
-			console.debug("all our handles", this.handles);
+			// console.debug("all our handles", this.handles);
 		},
 		shift : function(dir, key) {
-			console.debug("shift dir", dir);
-			console.debug("shift key", key);
+			// console.debug("shift dir", dir);
+			// console.debug("shift key", key);
 		},
 		moveHandel : function(handel, leftPos) {
 
 			domStyle.set(handel.node, "left", leftPos + "px");
 
-			console.debug("moveHandel left", domStyle.get(handel.node, "left"));
-			console.debug("moveHandel left", leftPos);
+			// console.debug("moveHandel left", domStyle.get(handel.node, "left"));
+			// console.debug("moveHandel left", leftPos);
 
 		},
 		_onSliderClick : function(e) {
@@ -209,10 +209,10 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			// console.debug("Focus Node", this.focusedNode);
 
 			if(this.colorPickerActive) {
-				console.debug("colorPickerActive",this.colorPickerActive)
+				// console.debug("colorPickerActive",this.colorPickerActive)
 				return;
 			}else{
-				console.debug("colorPickerActive",this.colorPickerActive)
+				// console.debug("colorPickerActive",this.colorPickerActive)
 			}
 
 			// get a reference to my clone node
@@ -247,7 +247,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 
 			// how many handles do we have already
 			var currentHandleIndex = this.handles.length;
-			console.debug("we have this many handles", currentHandleIndex);
+			// console.debug("we have this many handles", currentHandleIndex);
 			
 			domAttr.set(myClone, "data-index", currentHandleIndex);
 			domAttr.set(myClone, "data-pos", currentPos);
@@ -258,7 +258,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			handel.pos = currentPos;
 			// add our new handles to the hands array
 			this.handles.push(handel);
-			console.debug("all our handles", this.handles);
+			// console.debug("all our handles", this.handles);
 
 			this.createGradientFromHandles();
 
@@ -270,7 +270,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 		},
 		
 		_onDblClick: function(e) {
-			console.debug("dbl click", e);
+			// console.debug("dbl click", e);
 			// if altKe remove this handle
 			if(e.altKey){
 				this.removeThisHandle(e.target);
@@ -284,22 +284,22 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			// this.colorPicker.value = domAttr.get(this.focusedNode, "data-color");
 			var currentColor = domAttr.get(this.focusedNode, "data-color");
 			// this.colorPicker.set("value", currentColor);
-			console.debug("xxx current handles color ", currentColor)
+			// console.debug("xxx current handles color ", currentColor)
 			this.colorPicker.setColor(currentColor);
 
 			var targetHandleLeftPosition = domStyle.get(targetHandle, "left");
 			// move it off of the handle
 			targetHandleLeftPosition = targetHandleLeftPosition + 20;
 			// domStyle.set(handel.node, "left", leftPos + "px");
-			console.debug("dbl click target left pos ", targetHandleLeftPosition);
+			// console.debug("dbl click target left pos ", targetHandleLeftPosition);
 			
 			// show colorPicker at target postion
-			console.debug("colorPicker", this.colorPicker.domNode)
+			// console.debug("colorPicker", this.colorPicker.domNode)
 			
 			domStyle.set(this.colorPicker.domNode, "left", targetHandleLeftPosition + "px");
 			domStyle.set(this.closeColorPickerX, "left", targetHandleLeftPosition + 292 + "px");
 			
-			console.debug("this.closeColorPickerX",this.closeColorPickerX);
+			// console.debug("this.closeColorPickerX",this.closeColorPickerX);
 			domClass.toggle(this.closeColorPickerX, "hide");
 			domClass.toggle(this.colorPicker.domNode, "hide");
 			
@@ -325,10 +325,10 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 		},
 		
 		removeThisHandle: function(handle){
-			console.debug("remove this handle",handle);
+			// console.debug("remove this handle",handle);
 			var handleIndex = domAttr.get(handle, "data-index");
 			this._removeHandleFromList(handleIndex);
-			console.debug("remove this handleIndex",handleIndex);
+			// console.debug("remove this handleIndex",handleIndex);
 			
 			domConstruct.destroy(handle);
 
@@ -342,16 +342,16 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			for(var i=0; i<handlesLength; i++){
 				var handle = this.handles[i].node;
 				domAttr.set(handle, "data-index", i);
-				console.debug("current handle in list ", handle);
+				// console.debug("current handle in list ", handle);
 			}
 			
-			console.debug("handles", this.handles);
+			// console.debug("handles", this.handles);
 			this.createGradientFromHandles();
 		},
 		
 		_onColorPickerChange: function(colorValue){
-			console.debug("colorPicker value changed ",colorValue);
-			console.debug("update this nodes color ",this.focusedNode);
+			// console.debug("colorPicker value changed ",colorValue);
+			// console.debug("update this nodes color ",this.focusedNode);
 			domAttr.set(this.focusedNode, "data-color", colorValue);
 			domStyle.set(this.focusedNode, "backgroundColor", colorValue);
 			this.currentColor = colorValue;
