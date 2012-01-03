@@ -45,6 +45,8 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 		handles : [],
 		colorPickerActive: false,
 		currentColor: "#fff",
+		gradientDirection: "top",
+		vendorPrefixs: ["linear-gradient", "-moz-linear-gradient",, "-webkit-linear-gradient", "-o-linear-gradient", "-ms-linear-gradient"],
 		
 		//templateString : template,
 
@@ -124,8 +126,23 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			var handelLeft = (leftTop.l / 8) - 2;
 			var handelValueDisplay = dojo.query(".handleValue", mover.node)[0];
 			//console.debug("mouse moved update value", handelValueDisplay);
-			handelValueDisplay.innerHTML = dojo.number.round(handelLeft);
+			var currentPosition = dojo.number.round(handelLeft);
+			handelValueDisplay.innerHTML = currentPosition;
 			// console.debug("mouse moved handelLeft", dojo.number.round(handelLeft));
+			domAttr.set(mover.node, "data-pos", currentPosition);
+			
+			// whats it's index in the array so i can update it's object pos property
+			var currentHandleIndex = domAttr.get(mover.node, "data-index");
+			console.debug("xxx this handles index is ", currentHandleIndex);
+
+			this.handles[currentHandleIndex].pos = currentPosition;
+			
+			// mover.pos = currentPosition;
+			
+			
+			
+			this.createGradientFromHandles();
+
 
 		},
 		_onMouseUp : function(e) {
@@ -158,13 +175,20 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			// set their colors
 			domAttr.set(this.default1.node, "data-color", "#fff");
 			domStyle.set(this.default1.node, "backgroundColor", "#fff");
+			domAttr.set(this.default1.node, "data-pos", "0");
 
 			domAttr.set(this.default2.node, "data-color", "#000");
 			domStyle.set(this.default2.node, "backgroundColor", "#000");
+			domAttr.set(this.default2.node, "data-pos", "100");
+
+			this.default1.pos = 0;
+			this.default2.pos = 100;
 
 			// collect all our handles in an array
 			this.handles.push(this.default1);
 			this.handles.push(this.default2);
+
+			this.createGradientFromHandles();
 
 			console.debug("all our handles", this.handles);
 		},
@@ -231,10 +255,12 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 
 // 			this.colorPicker.domNode.value = this.currentColor;
 			domStyle.set(myClone, "backgroundColor", this.currentColor);
-
+			handel.pos = currentPos;
 			// add our new handles to the hands array
 			this.handles.push(handel);
 			console.debug("all our handles", this.handles);
+
+			this.createGradientFromHandles();
 
 			// reveal the new node in the UI
 			domClass.remove(myClone, "clone");
@@ -255,6 +281,11 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			
 			var targetHandle = e.target;
 			this.focusedNode = targetHandle;
+			// this.colorPicker.value = domAttr.get(this.focusedNode, "data-color");
+			var currentColor = domAttr.get(this.focusedNode, "data-color");
+			// this.colorPicker.set("value", currentColor);
+			console.debug("xxx current handles color ", currentColor)
+			this.colorPicker.setColor(currentColor);
 
 			var targetHandleLeftPosition = domStyle.get(targetHandle, "left");
 			// move it off of the handle
@@ -315,6 +346,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			}
 			
 			console.debug("handles", this.handles);
+			this.createGradientFromHandles();
 		},
 		
 		_onColorPickerChange: function(colorValue){
@@ -323,7 +355,54 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			domAttr.set(this.focusedNode, "data-color", colorValue);
 			domStyle.set(this.focusedNode, "backgroundColor", colorValue);
 			this.currentColor = colorValue;
+			this.createGradientFromHandles();
+		},
+		
+		
+		createGradientFromHandles: function(){
 			
+			// sort by pos
+			
+			this.handles.sort(function(a, b){
+			 return a.pos-b.pos
+			})
+
+			
+			var handlesLength = this.handles.length;
+			var colorStops = "";
+			for(var i=0; i<handlesLength; i++){
+				var handle = this.handles[i].node;
+				domAttr.set(handle, "data-index", i);
+				var currentColor = domAttr.get(handle, "data-color");
+				var currentPos = domAttr.get(handle, "data-pos");
+				// console.debug("current handle in list ", handle);
+				// console.debug("current handle color ", currentColor);
+				// console.debug("current handle pos ", currentPos);
+				colorStops += currentColor + " " + currentPos + "%";
+				var nextIndex = i + 1;
+				if(nextIndex<handlesLength){
+					colorStops += ", ";
+				}
+				
+			}
+			
+			var newGradientRule = "(" + this.gradientDirection + ", " + colorStops + ")";
+			// console.debug("colorStops ", colorStops);
+			// console.debug("newGradientRule ", newGradientRule);
+			
+			var styleRule = ".gradientPreview { \r";
+			
+			var vendorPrefixsLength = this.vendorPrefixs.length;
+			for(var i = 0; i<vendorPrefixsLength; i++){
+				styleRule += "background: " +  this.vendorPrefixs[i] + newGradientRule + ";\r";
+			}
+			
+			styleRule += "}\r";
+			// domConstruct.empty(this.gradientPreviewStyle);
+			this.gradientPreviewStyle.innerHTML = "";
+			this.gradientPreviewStyle.innerHTML = styleRule;
+
+
 		}
 	});
 
