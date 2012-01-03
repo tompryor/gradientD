@@ -22,7 +22,7 @@ define(["dojo/_base/declare", // declare
 "dojo/_base/window", 
 "dojo/dom-class",
 "dojo/dom-attr"], 
-function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domStyle, keys, lang, has, Moveable, Mover, query, registry, focus, typematic, Button, _FormValueWidget, _Container, connect, number, ctr, win, domClass, domAttr) {
+function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domStyle, keys, lang, has, Moveable, Mover, query, registry, focus, typematic, Button, _FormValueWidget, _Container, connect, number, domConstruct, win, domClass, domAttr) {
 
 	/*=====
 	var _Widget = dijit._Widget;
@@ -195,7 +195,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			var n = query(".clone", this.sliderBar)[0];
 
 			// create 1 clone of this node and append it to the sliderBar
-			var myClone = ctr.place(lang.clone(n), this.sliderBar);
+			var myClone = domConstruct.place(lang.clone(n), this.sliderBar);
 			this.focusedNode = myClone;
 
 
@@ -295,6 +295,10 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 		
 		removeThisHandle: function(handle){
 			console.debug("remove this handle",handle);
+			domConstruct.destroy(handle);
+
+			
+			
 		},
 		
 		_onColorPickerChange: function(colorValue){
