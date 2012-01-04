@@ -49,6 +49,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 		gradientDirection: "top",
 		vendorPrefixs: ["-moz-linear-gradient", "-webkit-linear-gradient", "-o-linear-gradient", "-ms-linear-gradient", "linear-gradient"],
 		previewStylesNode: null,
+		_started: false,
 		
 		//templateString : template,
 
@@ -81,15 +82,20 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 		postCreate : function() {
 			console.debug("3. in gradientSlider postCreate");
 
-			this.startup();
+			//this.startup();
 
 		},
 		//Called after the widget's children and all other widgets on the
 		//page have been created. Provides an opportunity to manipulate child
 		//widgets before they're displayed.
 		startup : function() {
+			if(this._started){
+				return;
+			}
+			this._started = true;
 			console.debug("4. in gradientSlider startup");
-
+			this.init();
+			//this.colorPicker.startup();
 			// this._getCurrentTile();
 
 		},
@@ -154,7 +160,11 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 
 		},
 		init : function() {
-			console.debug("gradientSlider init");
+			
+			
+			// console.debug("gradientSlider init");
+			
+			
 			// make the default left handle draggable
 			this.default1 = new dojo.dnd.move.parentConstrainedMoveable(this.default1, {
 				area : "content",
@@ -195,6 +205,9 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			this.createGradientFromHandles();
 			dojo.subscribe("/dnd/move/stop", this, "updateCodePreview");
 			this.updateCodePreview();
+			
+
+			// this.startup();
 
 			// console.debug("all our handles", this.handles);
 		},
@@ -283,6 +296,9 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 				return;
 			}
 			
+			// need to call this from the widget or it doesn't get called, doesn't work this.init or this.startup
+			this.colorPicker.startup();
+
 			// this.colorPicker.value = this.currentColor;
 			
 			var targetHandle = e.target;
@@ -416,7 +432,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 		
 		updateCodePreview: function() {
 			var codePreview = dojo.query(".prettyprint")[0];
-			console.debug("codePreview", codePreview);
+			// console.debug("codePreview", codePreview);
 			// var currentPosition = dojo.number.round(handelLeft);
 			codePreview.innerHTML = this.styleRule;
 			prettyPrint();

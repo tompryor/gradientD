@@ -16,6 +16,8 @@ define(["dojo/_base/declare", // declare
 		_dijitTemplateCompat : true,
 		widgetsInTemplate : true,
 		templateString : dojo.cache("dvia.widgets.gradientDesigner", "html/gradientDesigner.html"),
+		_started: false,
+		
 		//ef : dojo.fx.easing["quadInOut"],
 
 		//Any initialization code would go here in the constructor. dijit._Widget and
@@ -47,8 +49,12 @@ define(["dojo/_base/declare", // declare
 		//page have been created. Provides an opportunity to manipulate child
 		//widgets before they're displayed.
 		startup : function() {
+			if(this._started){
+				return;
+			}
+			this._started = true;
 			console.debug("4. in GradientDesigner startup");
-			this.gradientSlider.init();
+			this.gradientSlider.startup();
 			// this._getCurrentTile();
 
 		}
