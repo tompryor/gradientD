@@ -1,9 +1,16 @@
+$color: #939197;
+$hoff: 0;
+$voff: 4px;
+$blur: 20px;
+$spread: 0;
+
 .gradientPreview {
     border: 1px solid black;
     height: 250px;
     margin: 20px 0 50px 20px;
     padding: 0;
     width: 795px;
+    @include single-box-shadow($color, $hoff, $voff, $blur, $spread);
 }
 
 .gdContainer {
