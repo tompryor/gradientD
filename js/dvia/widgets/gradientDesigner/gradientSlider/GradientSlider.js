@@ -48,6 +48,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 		currentColor: "#fff",
 		gradientDirection: "top",
 		vendorPrefixs: ["-moz-linear-gradient", "-webkit-linear-gradient", "-o-linear-gradient", "-ms-linear-gradient", "linear-gradient"],
+		previewStylesNode: null,
 		
 		//templateString : template,
 
@@ -62,7 +63,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 		constructor : function() {
 			console.debug("1. in gradientSlider constructor");
 			//this.ef = dojo.fx.easing["quadInOut"];
-			
+			this.previewStylesNode = dojo.place("<style></style>", dojo.body());
 
 
 		},
@@ -407,10 +408,10 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			
 			this.styleRule += "}\r";
 			// domConstruct.empty(this.gradientPreviewStyle);
-			this.gradientPreviewStyle.innerHTML = "";
-			this.gradientPreviewStyle.innerHTML = this.styleRule;
-
-
+			// this.gradientPreviewStyle.innerHTML = "";
+			// this.gradientPreviewStyle.innerHTML = this.styleRule;
+			this.previewStylesNode.innerHTML = "";
+			this.previewStylesNode.innerHTML = this.styleRule;
 		},
 		
 		updateCodePreview: function() {
