@@ -1,0 +1,19 @@
+// download the sass tool here http://mhs.github.com/scout-app 
+// add a project directory, then point it's input to the sass directory
+// then point it's output to the property css directory
+
+// compass utility modules // http://compass-style.org/help/tutorials/
+@import "compass"; // http://compass-style.org/reference/compass/
+@import "compass/css3"; // http://compass-style.org/reference/compass/css3/
+@import "compass/typography"; // http://compass-style.org/reference/compass/typography/
+@import "compass/utilities"; // http://compass-style.org/reference/compass/utilities/
+
+@import "compass/layout"; // http://compass-style.org/reference/compass/layout/
+
+
+@import 'modules/rounded';
+@import 'modules/clearFix';
+@import 'modules/unselectable';
+
+// @import "modules/sassy-buttons";
+@import "modules/fancy-buttons";

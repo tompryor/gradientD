@@ -1,3 +1,9 @@
+$color: #333;
+$hoff: 1px;
+$voff: 1px;
+$blur: 3px;
+$spread: 0;
+
 .moveable {
     background: none repeat scroll 0 0 #FFFFBF;
     border: 1px solid black;
@@ -7,6 +13,8 @@
     padding: 0;
     width: 20px;
     position: absolute;
+    @include single-box-shadow($color, $hoff, $voff, $blur, $spread);
+
 }
 .sliderBar {
     background: none repeat scroll 0 0 #BFECFF;
@@ -49,6 +57,7 @@
   
 }
 
+
 .dojoMoveItem {
   cursor: -webkit-grabbing;
   cursor: -moz-grabbing;
@@ -62,7 +71,7 @@
 
 
 .fancy-button-reset-base-class, .fancy-button-base, a.big, button {
-  font-family: "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: 'Lucida Grande', Lucida, Arial, sans-serif;
   background: url('../images/button_bg.png?1262308446') repeat-x bottom left;
   margin: 0;
   width: auto;

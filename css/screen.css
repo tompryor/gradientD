@@ -86,7 +86,7 @@ pre.prettyprint {
   margin-left: 25px;
 }
 
-/* line 1, sass/partials/_gradientSlider.scss */
+/* line 7, sass/partials/_gradientSlider.scss */
 .moveable {
   background: none repeat scroll 0 0 #FFFFBF;
   border: 1px solid black;
@@ -96,9 +96,13 @@ pre.prettyprint {
   padding: 0;
   width: 20px;
   position: absolute;
+  -moz-box-shadow: 1px 1px 3px 0 #333333;
+  -webkit-box-shadow: 1px 1px 3px 0 #333333;
+  -o-box-shadow: 1px 1px 3px 0 #333333;
+  box-shadow: 1px 1px 3px 0 #333333;
 }
 
-/* line 11, sass/partials/_gradientSlider.scss */
+/* line 19, sass/partials/_gradientSlider.scss */
 .sliderBar {
   background: none repeat scroll 0 0 #BFECFF;
   border: 10px solid lightblue;
@@ -108,7 +112,7 @@ pre.prettyprint {
   width: 816px;
 }
 
-/* line 20, sass/partials/_gradientSlider.scss */
+/* line 28, sass/partials/_gradientSlider.scss */
 .arrowUp {
   border-bottom: 5px solid #2F2F2F;
   border-left: 5px solid transparent;
@@ -120,45 +124,45 @@ pre.prettyprint {
   width: 0;
 }
 
-/* line 31, sass/partials/_gradientSlider.scss */
+/* line 39, sass/partials/_gradientSlider.scss */
 .handleValue {
   position: relative;
   text-align: center;
   top: -28px;
 }
 
-/* line 37, sass/partials/_gradientSlider.scss */
+/* line 45, sass/partials/_gradientSlider.scss */
 .clone {
   display: none;
 }
 
-/* line 42, sass/partials/_gradientSlider.scss */
+/* line 50, sass/partials/_gradientSlider.scss */
 .sliderBar {
   cursor: pointer;
 }
 
-/* line 46, sass/partials/_gradientSlider.scss */
+/* line 54, sass/partials/_gradientSlider.scss */
 .sliderBar .dojoxColorPicker {
   position: absolute;
   z-index: 1;
 }
 
-/* line 52, sass/partials/_gradientSlider.scss */
+/* line 61, sass/partials/_gradientSlider.scss */
 .dojoMoveItem {
   cursor: -webkit-grabbing;
   cursor: -moz-grabbing;
   cursor: move;
 }
 
-/* line 58, sass/partials/_gradientSlider.scss */
+/* line 67, sass/partials/_gradientSlider.scss */
 .closeColorPicker {
   position: absolute;
   z-index: 2;
 }
 
-/* line 64, sass/partials/_gradientSlider.scss */
+/* line 73, sass/partials/_gradientSlider.scss */
 .fancy-button-reset-base-class, .fancy-button-base, a.big, button {
-  font-family: "Lucida Grande", Lucida, Arial, sans-serif;
+  font-family: 'Lucida Grande', Lucida, Arial, sans-serif;
   background: url("../images/button_bg.png?1262308446") repeat-x bottom left;
   margin: 0;
   width: auto;
@@ -170,7 +174,7 @@ pre.prettyprint {
   font-weight: bold;
 }
 
-/* line 78, sass/partials/_gradientSlider.scss */
+/* line 87, sass/partials/_gradientSlider.scss */
 .arrow {
   -moz-border-radius: 1em;
   -webkit-border-radius: 1em;
@@ -202,12 +206,12 @@ pre.prettyprint {
   border-width: 2px;
 }
 
-/* line 108, sass/partials/_gradientSlider.scss */
+/* line 117, sass/partials/_gradientSlider.scss */
 .arrow, .arrow:visited {
   color: #222;
 }
 
-/* line 111, sass/partials/_gradientSlider.scss */
+/* line 120, sass/partials/_gradientSlider.scss */
 .arrow:hover, .arrow:focus {
   background-color: #fff;
   background-image: -webkit-gradient(radial, 50% 10%, 0, 50% 10%, 30, color-stop(0%, #fcfcfc), color-stop(100%, #b9b9b9));
@@ -217,12 +221,12 @@ pre.prettyprint {
   text-shadow: #fff 0px 1px 1px;
 }
 
-/* line 119, sass/partials/_gradientSlider.scss */
+/* line 128, sass/partials/_gradientSlider.scss */
 .arrow:hover, .arrow:hover:visited, .arrow:focus, .arrow:focus:visited {
   color: #222;
 }
 
-/* line 122, sass/partials/_gradientSlider.scss */
+/* line 131, sass/partials/_gradientSlider.scss */
 .arrow:active {
   background-color: #fff;
   background-image: -webkit-gradient(radial, 50% 10%, 0, 50% 10%, 30, color-stop(0%, #d8d8d8), color-stop(100%, #f1f1f1));
@@ -236,7 +240,7 @@ pre.prettyprint {
   box-shadow: #b7b7b7 0 0.08em 0.1em 1px inset;
 }
 
-/* line 134, sass/partials/_gradientSlider.scss */
+/* line 143, sass/partials/_gradientSlider.scss */
 .arrow:active, .arrow:active:visited {
   color: #222;
 }
