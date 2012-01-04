@@ -132,19 +132,31 @@ pre.prettyprint {
   display: none;
 }
 
-/* line 43, sass/partials/_gradientSlider.scss */
+/* line 42, sass/partials/_gradientSlider.scss */
+.sliderBar {
+  cursor: pointer;
+}
+
+/* line 46, sass/partials/_gradientSlider.scss */
 .sliderBar .dojoxColorPicker {
   position: absolute;
   z-index: 1;
 }
 
-/* line 49, sass/partials/_gradientSlider.scss */
+/* line 52, sass/partials/_gradientSlider.scss */
+.dojoMoveItem {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: move;
+}
+
+/* line 58, sass/partials/_gradientSlider.scss */
 .closeColorPicker {
   position: absolute;
   z-index: 2;
 }
 
-/* line 55, sass/partials/_gradientSlider.scss */
+/* line 64, sass/partials/_gradientSlider.scss */
 .fancy-button-reset-base-class, .fancy-button-base, a.big, button {
   font-family: "Lucida Grande", Lucida, Arial, sans-serif;
   background: url("../images/button_bg.png?1262308446") repeat-x bottom left;
@@ -158,7 +170,7 @@ pre.prettyprint {
   font-weight: bold;
 }
 
-/* line 69, sass/partials/_gradientSlider.scss */
+/* line 78, sass/partials/_gradientSlider.scss */
 .arrow {
   -moz-border-radius: 1em;
   -webkit-border-radius: 1em;
@@ -190,12 +202,12 @@ pre.prettyprint {
   border-width: 2px;
 }
 
-/* line 99, sass/partials/_gradientSlider.scss */
+/* line 108, sass/partials/_gradientSlider.scss */
 .arrow, .arrow:visited {
   color: #222;
 }
 
-/* line 102, sass/partials/_gradientSlider.scss */
+/* line 111, sass/partials/_gradientSlider.scss */
 .arrow:hover, .arrow:focus {
   background-color: #fff;
   background-image: -webkit-gradient(radial, 50% 10%, 0, 50% 10%, 30, color-stop(0%, #fcfcfc), color-stop(100%, #b9b9b9));
@@ -205,12 +217,12 @@ pre.prettyprint {
   text-shadow: #fff 0px 1px 1px;
 }
 
-/* line 110, sass/partials/_gradientSlider.scss */
+/* line 119, sass/partials/_gradientSlider.scss */
 .arrow:hover, .arrow:hover:visited, .arrow:focus, .arrow:focus:visited {
   color: #222;
 }
 
-/* line 113, sass/partials/_gradientSlider.scss */
+/* line 122, sass/partials/_gradientSlider.scss */
 .arrow:active {
   background-color: #fff;
   background-image: -webkit-gradient(radial, 50% 10%, 0, 50% 10%, 30, color-stop(0%, #d8d8d8), color-stop(100%, #f1f1f1));
@@ -224,7 +236,7 @@ pre.prettyprint {
   box-shadow: #b7b7b7 0 0.08em 0.1em 1px inset;
 }
 
-/* line 125, sass/partials/_gradientSlider.scss */
+/* line 134, sass/partials/_gradientSlider.scss */
 .arrow:active, .arrow:active:visited {
   color: #222;
 }

@@ -39,11 +39,20 @@
   
 }
 
+.sliderBar {
+  cursor: pointer;
+}
 
 .sliderBar .dojoxColorPicker  {
   position: absolute;
   z-index: 1;
   
+}
+
+.dojoMoveItem {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: move;
 }
 
 .closeColorPicker {
