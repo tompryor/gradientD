@@ -21,7 +21,8 @@ define(["dojo/_base/declare", // declare
 "dojo/dom-construct", 
 "dojo/_base/window", 
 "dojo/dom-class",
-"dojo/dom-attr"], 
+"dojo/dom-attr",
+"dvia/widgets/ColorPicker/ColorPicker"], 
 function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domStyle, keys, lang, has, Moveable, Mover, query, registry, focus, typematic, Button, _FormValueWidget, _Container, connect, number, domConstruct, win, domClass, domAttr) {
 
 	/*=====
@@ -114,21 +115,24 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 				default:
 					return;
 			}
-			event.stop(e);
+			//event.stop(e);
 		},
 		_onHandleClick : function(e) {
-			// console.debug("handle clicked", e.target.id);
+			console.debug("handle clicked", e.target.id);
 			this.focusedNode = e.target;
 
 			if(this.disabled || this.readOnly) {
 				return;
 			}
+			//console.debug("handle clicked", e.target.id);
+			this.currentColor = domAttr.get(this.focusedNode, "data-color");
+			
 			if(!has("ie")) {
 				// make sure you get focus when dragging the handle
 				// (but don't do on IE because it causes a flicker on mouse up (due to blur then focus)
 				//focus.focus(this.default1.domNode);
 			}
-			event.stop(e);
+			//event.stop(e);
 		},
 		_onMouseMove : function(mover, leftTop) {
 			//console.debug("mouse moved mover", mover);
@@ -259,7 +263,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			connect.connect(handel, "onMove", this, "_onMouseMove");
 			
 			// attach to the dom onclick event
-			connect.connect(myClone, "onclick", this, "_onHandleClick");
+			connect.connect(myClone, "onmousedown", this, "_onHandleClick");
 
 			// attach to the dom ondblclick event
 			connect.connect(myClone, "ondblclick", this, "_onDblClick");
@@ -272,7 +276,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			domAttr.set(myClone, "data-pos", currentPos);
 			domAttr.set(myClone, "data-color", this.currentColor);
 
-// 			this.colorPicker.domNode.value = this.currentColor;
+			// this.colorPicker.domNode.value = this.currentColor;
 			domStyle.set(myClone, "backgroundColor", this.currentColor);
 			handel.pos = currentPos;
 			// add our new handles to the hands array
@@ -319,7 +323,7 @@ function(declare, _Widget, _Templated, array, move, event, fx, domGeometry, domS
 			// console.debug("colorPicker", this.colorPicker.domNode)
 			
 			domStyle.set(this.colorPicker.domNode, "left", targetHandleLeftPosition + "px");
-			domStyle.set(this.closeColorPickerX, "left", targetHandleLeftPosition + 292 + "px");
+			domStyle.set(this.closeColorPickerX, "left", targetHandleLeftPosition + 227 + "px");
 			
 			// console.debug("this.closeColorPickerX",this.closeColorPickerX);
 			domClass.toggle(this.closeColorPickerX, "hide");
