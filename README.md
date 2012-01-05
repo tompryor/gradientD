@@ -7,3 +7,7 @@ Demo
 
 http://dvia.com/gd
 
+Requires Dojo 1.7
+----
+
+http://dojotoolkit.org/download
