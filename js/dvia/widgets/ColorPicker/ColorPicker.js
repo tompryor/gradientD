@@ -2,7 +2,7 @@ define([
 	"dojo/_base/kernel","dojo/_base/declare","dojo/_base/lang","dojo/_base/array",
 	"dojo/_base/html","dojo/_base/connect","dojo/_base/sniff","dojo/_base/window",
 	"dojo/_base/event","dojo/dom","dojo/dom-class","dojo/keys","dojo/fx","dojo/dnd/move",
-	"dijit/registry","dijit/_base/focus","dijit/form/_FormWidget","dijit/Typematic",
+	"dijit/registry","dijit/_base/focus","dijit/form/_FormWidget","dijit/typematic",
 	"dojox/color","dojo/i18n","dojo/i18n!./nls/ColorPicker","dojo/i18n!dojo/cldr/nls/number",
 	"dojo/text!./ColorPicker/ColorPicker.html"
 ], function(kernel,declare,lang,ArrayUtil,html,Hub,has,win,Event,DOM,DOMClass,Keys,fx,move,
