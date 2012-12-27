@@ -4,6 +4,16 @@ A custom dojo AMD widget mashup of the dojox.widget.ColorPicker, with a hack to 
 
 Still a work in progress, this project is mostly an exercise for me to get more familiar with AMD, but you can download it and run it just by double clicking the index.html file.
 
+Goal
+-----
+Generate valid CSS3 text that can be copied-n-pasted into your project. 
+
+TODO
+-----
+* Currently only supports vertical gradients, add support for radial.
+* Add Sass support.
+* Add better support for older IE browsers.
+
 Demo
 -----
 
