@@ -8,16 +8,6 @@
 
 
 <link rel="stylesheet" type="text/css" href="css/master.css" />
-<!-- Using a local copy of dojo + AMD pattern -->
-<!-- <script>
-			var _dbpDev = true;
-			dojoConfig = {
-				parseOnLoad : true,
-				async : true
-			};
-
-		</script> -->
-
 <script
 	data-dojo-config="async: 1, dojoBlankHtmlUrl: '/blank.html',
         packages: [ {
@@ -26,9 +16,6 @@
         } ]"
 	src="http://ajax.googleapis.com/ajax/libs/dojo/1.8.2/dojo/dojo.js"></script>
 
-<!--  <script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.2/dojo/dojo.js"></script> -->
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/dojo/1.6.1/dojo/dojo.xd.js" type="text/javascript"></script> -->
-<!-- <script src="dojo-release-1.7.1-src/dojo/dojo.js" type="text/javascript"></script> -->
 <script type="text/javascript" charset="utf-8">
     require([
         "dojo/parser",
@@ -46,6 +33,7 @@
 </script>
 </head>
 <body class=" claro ">
-	<div class="gradient_designer" data-dojo-type="dvia.widgets.gradientDesigner.GradientDesigner"></div>
+	<div class="gradient_designer"
+		data-dojo-type="dvia.widgets.gradientDesigner.GradientDesigner"></div>
 </body>
 </html>
