@@ -1,27 +1,3 @@
-/* incase an inverted custom gradient isn't specified */
-/* line 177, sass/modules/_fancy-buttons.sass */
-.fancy-button-reset-base-class {
-  font-family: "Lucida Grande", Lucida, Arial, sans-serif;
-  background: url('/button_bg.png') repeat-x bottom left;
-  margin: 0;
-  width: auto;
-  overflow: visible;
-  display: inline-block;
-  cursor: pointer;
-  text-decoration: none;
-  border-style: solid;
-  font-weight: bold;
-}
-/* line 165, sass/modules/_fancy-buttons.sass */
-.fancy-button-reset-base-class::-moz-focus-inner {
-  border: none;
-  padding: 0;
-}
-/* line 168, sass/modules/_fancy-buttons.sass */
-.fancy-button-reset-base-class:focus {
-  outline: none;
-}
-
 /* line 1, sass/partials/_base.scss */
 body, html {
   font-family: helvetica,arial,sans-serif;
@@ -36,30 +12,35 @@ body, html {
 }
 
 /* line 7, sass/partials/_gradientDesigner.scss */
+.gradient_designer {
+  margin: 0 50px;
+  overflow: auto;
+}
+
+/* line 13, sass/partials/_gradientDesigner.scss */
 .gradientPreview {
   border: 1px solid black;
   height: 250px;
   margin: 20px 0 50px 20px;
   padding: 0;
   width: 795px;
-  -moz-box-shadow: 0 4px 20px 0 #939197;
   -webkit-box-shadow: 0 4px 20px 0 #939197;
-  -o-box-shadow: 0 4px 20px 0 #939197;
+  -moz-box-shadow: 0 4px 20px 0 #939197;
   box-shadow: 0 4px 20px 0 #939197;
 }
 
-/* line 16, sass/partials/_gradientDesigner.scss */
+/* line 22, sass/partials/_gradientDesigner.scss */
 .gdContainer {
   float: left;
   margin-right: 30px;
 }
 
-/* line 21, sass/partials/_gradientDesigner.scss */
+/* line 27, sass/partials/_gradientDesigner.scss */
 .codePreview {
   float: left;
 }
 
-/* line 27, sass/partials/_gradientDesigner.scss */
+/* line 33, sass/partials/_gradientDesigner.scss */
 pre.prettyprint {
   padding: 14px;
   background-color: #efefef;
@@ -77,16 +58,15 @@ pre.prettyprint {
   padding: 0;
   width: 20px;
   position: absolute;
-  -moz-box-shadow: 1px 1px 3px 0 #333333;
   -webkit-box-shadow: 1px 1px 3px 0 #333333;
-  -o-box-shadow: 1px 1px 3px 0 #333333;
+  -moz-box-shadow: 1px 1px 3px 0 #333333;
   box-shadow: 1px 1px 3px 0 #333333;
 }
 
 /* line 19, sass/partials/_gradientSlider.scss */
 .sliderBar {
   background: none repeat scroll 0 0 #BFECFF;
-  border: 10px solid lightblue;
+  border: 9px solid lightblue;
   height: 20px;
   margin: 0;
   padding: 0;
@@ -189,7 +169,7 @@ pre.prettyprint {
 
 /* line 117, sass/partials/_gradientSlider.scss */
 .arrow, .arrow:visited {
-  color: #222;
+  color: #222222;
 }
 
 /* line 120, sass/partials/_gradientSlider.scss */
@@ -199,12 +179,12 @@ pre.prettyprint {
   background-image: -moz-radial-gradient(50% 10%, circle, #fcfcfc 0%, #b9b9b9 30px);
   background-image: radial-gradient(50% 10%, circle, #fcfcfc 0%, #b9b9b9 30px);
   border-color: #afafaf;
-  text-shadow: #fff 0px 1px 1px;
+  text-shadow: white 0px 1px 1px;
 }
 
 /* line 128, sass/partials/_gradientSlider.scss */
 .arrow:hover, .arrow:hover:visited, .arrow:focus, .arrow:focus:visited {
-  color: #222;
+  color: #222222;
 }
 
 /* line 131, sass/partials/_gradientSlider.scss */
@@ -223,5 +203,5 @@ pre.prettyprint {
 
 /* line 143, sass/partials/_gradientSlider.scss */
 .arrow:active, .arrow:active:visited {
-  color: #222;
+  color: #222222;
 }

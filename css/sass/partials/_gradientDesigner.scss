@@ -4,6 +4,12 @@ $voff: 4px;
 $blur: 20px;
 $spread: 0;
 
+.gradient_designer {
+	margin: 0 50px;
+	overflow: auto;
+}
+
+
 .gradientPreview {
     border: 1px solid black;
     height: 250px;

@@ -1,4 +1,5 @@
-@import "../dojo-release-1.7.1-src/dijit/themes/claro/claro.css";
+@import "http://ajax.googleapis.com/ajax/libs/dojo/1.8/dojo/resources/dojo.css";
+@import "http://ajax.googleapis.com/ajax/libs/dojo/1.8.2/dijit/themes/claro/claro.css";
 @import "../js/dvia/widgets/ColorPicker/ColorPicker.css";
 @import "screen.css";
 
