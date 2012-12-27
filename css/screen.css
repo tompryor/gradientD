@@ -13,7 +13,7 @@ body, html {
 
 /* line 7, sass/partials/_gradientDesigner.scss */
 .gradient_designer {
-  margin: 0 50px;
+  padding: 0 50px 50px;
   overflow: auto;
 }
 
@@ -38,14 +38,16 @@ body, html {
 /* line 27, sass/partials/_gradientDesigner.scss */
 .codePreview {
   float: left;
+  width: 940px;
 }
 
-/* line 33, sass/partials/_gradientDesigner.scss */
+/* line 35, sass/partials/_gradientDesigner.scss */
 pre.prettyprint {
   padding: 14px;
   background-color: #efefef;
   color: #fff;
   margin-left: 25px;
+  overflow: auto;
 }
 
 /* line 7, sass/partials/_gradientSlider.scss */
