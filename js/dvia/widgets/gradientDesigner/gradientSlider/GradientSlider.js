@@ -25,6 +25,7 @@ define(
         "dojo/_base/declare", // declare
         "dijit/_Widget",
         "dojox/dtl/_Templated",
+        "dojo/Evented",
         "dojo/_base/array", // array.forEach
         "dojo/dnd/move",
         "dojo/_base/event", // event.stop
@@ -54,7 +55,7 @@ define(
         "dijit/form/HorizontalRuleLabels",
         "dvia/widgets/ColorPicker/ColorPicker"
     ],
-    function (declare, _Widget, _Templated, array, move, event, fx, domGeometry, domStyle, keys, lang, has, Moveable, Mover, query, registry, focus, typematic, Button, _FormValueWidget, _Container, connect, number, domConstruct, win, domClass, domAttr, horizontalRule, horizontalRuleLabels)
+    function (declare, _Widget, _Templated, Evented, array, move, event, fx, domGeometry, domStyle, keys, lang, has, Moveable, Mover, query, registry, focus, typematic, Button, _FormValueWidget, _Container, connect, number, domConstruct, win, domClass, domAttr, horizontalRule, horizontalRuleLabels)
     {
 
         /*
@@ -68,7 +69,8 @@ define(
 
         var gradientSlider = declare("dvia.widgets.gradientDesigner.gradientSlider.GradientSlider", [
             _Widget,
-            _Templated
+            _Templated,
+            Evented
         ], {
 
             _dijitTemplateCompat : true,
@@ -165,7 +167,7 @@ define(
             },
             _onHandleClick : function (e)
             {
-                console.debug("handle clicked", e.target.id);
+//                console.debug("handle clicked", e.target.id);
                 this.focusedNode = e.target;
 
                 if (this.disabled || this.readOnly)
@@ -214,7 +216,7 @@ define(
             init : function ()
             {
 
-                 console.debug("gradientSlider init");
+//                 console.debug("gradientSlider init");
 
                 // make the default left handle draggable
                 this.default1 = new dojo.dnd.move.parentConstrainedMoveable(this.default1, {
@@ -450,6 +452,7 @@ define(
             createGradientFromHandles : function ()
             {
 
+
                 // sort by pos
 
                 this.handles.sort(function (a, b)
@@ -463,40 +466,62 @@ define(
                 {
                     var handle = this.handles[i].node;
                     domAttr.set(handle, "data-index", i);
-                    var currentColor = domAttr.get(handle, "data-color");
-                    var currentPos = domAttr.get(handle, "data-pos");
+//                    var currentColor = domAttr.get(handle, "data-color");
+//                    var currentPos = domAttr.get(handle, "data-pos");
                     // console.debug("current handle in list ", handle);
                     // console.debug("current handle color ", currentColor);
                     // console.debug("current handle pos ", currentPos);
-                    colorStops += currentColor + " " + currentPos + "%";
-                    var nextIndex = i + 1;
-                    if (nextIndex < handlesLength)
-                    {
-                        colorStops += ", ";
-                    }
+//                    colorStops += currentColor + " " + currentPos + "%";
+//                    var nextIndex = i + 1;
+//                    if (nextIndex < handlesLength)
+//                    {
+//                        colorStops += ", ";
+//                    }
 
                 }
 
-                var newGradientRule = "(" + this.gradientDirection + ", " + colorStops + ")";
+//                var newGradientRule = "(" + this.gradientDirection + ", " + colorStops + ")";
+                
+                this.emit("createGradientFromHandles", {
+                    bubbles: true,
+                    cancelable: true,
+                    handels: this.handles
+                    
+                  });
+
+                
                 // console.debug("colorStops ", colorStops);
                 // console.debug("newGradientRule ", newGradientRule);
 
-                this.styleRule = ".gradientPreview { \r";
-
-                var vendorPrefixsLength = this.vendorPrefixs.length;
-                for ( var i = 0; i < vendorPrefixsLength; i++)
-                {
-                    this.styleRule += "  background: " + this.vendorPrefixs[i] + newGradientRule + ";\r";
-                }
-
-                this.styleRule += "}\r";
-                // domConstruct.empty(this.gradientPreviewStyle);
-                // this.gradientPreviewStyle.innerHTML = "";
-                // this.gradientPreviewStyle.innerHTML = this.styleRule;
-                this.previewStylesNode.innerHTML = "";
-                this.previewStylesNode.innerHTML = this.styleRule;
+//                this.styleRule = ".gradientPreview { \r";
+//
+//                var vendorPrefixsLength = this.vendorPrefixs.length;
+//                for ( var i = 0; i < vendorPrefixsLength; i++)
+//                {
+//                    this.styleRule += "  background: " + this.vendorPrefixs[i] + newGradientRule + ";\r";
+//                }
+//
+//                this.styleRule += "}\r";
+//
+//                this.previewStylesNode.innerHTML = "";
+//                this.previewStylesNode.innerHTML = this.styleRule;
             },
 
+            updateStylePreview : function (rules)
+            {
+                this.styleRule = ".gradientPreview { \r";
+                this.styleRule += rules;
+                this.styleRule += "}\r";
+
+                 // console.debug("gradientSlider#updateStylePreview: ", this.styleRule)
+                 this.previewStylesNode.innerHTML = "";
+                 this.previewStylesNode.innerHTML = this.styleRule;
+                 
+                 this.updateCodePreview();
+
+
+            },
+            
             updateCodePreview : function ()
             {
                 var codePreview = dojo.query(".prettyprint")[0];

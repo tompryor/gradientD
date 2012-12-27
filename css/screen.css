@@ -12,12 +12,22 @@ body, html {
 }
 
 /* line 7, sass/partials/_gradientDesigner.scss */
+.noDisplay {
+  display: none;
+}
+
+/* line 11, sass/partials/_gradientDesigner.scss */
+.gradientOptions {
+  margin: 12px;
+}
+
+/* line 15, sass/partials/_gradientDesigner.scss */
 .gradient_designer {
   padding: 0 50px 50px;
   overflow: auto;
 }
 
-/* line 13, sass/partials/_gradientDesigner.scss */
+/* line 21, sass/partials/_gradientDesigner.scss */
 .gradientPreview {
   border: 1px solid black;
   height: 250px;
@@ -29,19 +39,19 @@ body, html {
   box-shadow: 0 4px 20px 0 #939197;
 }
 
-/* line 22, sass/partials/_gradientDesigner.scss */
+/* line 30, sass/partials/_gradientDesigner.scss */
 .gdContainer {
   float: left;
   margin-right: 30px;
 }
 
-/* line 27, sass/partials/_gradientDesigner.scss */
+/* line 35, sass/partials/_gradientDesigner.scss */
 .codePreview {
   float: left;
   width: 940px;
 }
 
-/* line 35, sass/partials/_gradientDesigner.scss */
+/* line 43, sass/partials/_gradientDesigner.scss */
 pre.prettyprint {
   padding: 14px;
   background-color: #efefef;

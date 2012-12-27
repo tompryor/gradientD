@@ -4,6 +4,14 @@ $voff: 4px;
 $blur: 20px;
 $spread: 0;
 
+.noDisplay {
+	display: none;
+}
+
+.gradientOptions {
+	margin: 12px;
+}
+
 .gradient_designer {
 	padding: 0 50px 50px;;
 	overflow: auto;
