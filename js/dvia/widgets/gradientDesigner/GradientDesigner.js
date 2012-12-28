@@ -83,7 +83,7 @@ define(
                     // this.ef = dojo.fx.easing["quadInOut"];
 
                 },
-                
+
                 // Inherited from dijit._Widget and called just before template
                 // instantiation in buildRendering. This method is especially useful
                 // for manipulating the template before it becomes visible.
@@ -93,7 +93,7 @@ define(
                     // this.render();
 
                 },
-                
+
                 // You can override this method to manipulate widget once it is
                 // placed in the UI, but be warned that any child widgets contained
                 // in it may not be ready yet.
@@ -103,7 +103,7 @@ define(
                     // this.startup();
 
                 },
-                
+
                 // Called after the widget's children and all other widgets on the
                 // page have been created. Provides an opportunity to manipulate child
                 // widgets before they're displayed.
@@ -131,62 +131,66 @@ define(
                     // console.debug("GradientDesigner#_createCss: _linearGradienDegreeValue",
                     // this._linearGradienDegreeValue)
                     // console.debug("GradientDesigner#_createCss: _gradientType", this._gradientType)
-//                     console.debug("GradientDesigner#_createCss: _gradientStore", this._gradientStore)
+                    // console.debug("GradientDesigner#_createCss: _gradientStore", this._gradientStore)
 
                     var genericGradient = "";
                     var nonVendorGradient = "";
 
                     var background = "\t background-image: "
                     var colorStops = "";
-                    
-                    
-                    
-                    this._gradientStore.query(function(object){
+
+                    this._gradientStore.query(function (object)
+                    {
                         // return object.id > 1;
-//                         console.debug("GradientDesigner#_createCss: _gradientStore object",object);
-                         
-                         colorStops = colorStops + ", " + object.currentColor + " " + object.currentPos + "%"
+                        // console.debug("GradientDesigner#_createCss: _gradientStore object",object);
 
-                        
+                        colorStops = colorStops + ", " + object.currentColor + " " + object.currentPos + "%"
+
                     }) // Pass a function to do more complex querying
-
 
                     if (this._gradientType === "linear-gradient")
                     {
                         var standardDegeree = 0;
 
-//                        if(this._linearGradienDegreeValue > 180){
-//                             standardDegeree = this._linearGradienDegreeValue - 90;
-//
-//                        }else{
-//                             standardDegeree = this._linearGradienDegreeValue + 90;
-//
-//                        }
-                      standardDegeree = this._linearGradienDegreeValue + 90;
-                      standardDegeree = this._linearGradienDegreeValue; // the non vendor prefix deg is different from the vendor prefixed ones argh! http://stackoverflow.com/questions/12868704/why-did-firefox-16-change-the-direction-of-my-linear-gradients
+                        // if(this._linearGradienDegreeValue > 180){
+                        // standardDegeree = this._linearGradienDegreeValue - 90;
+                        //
+                        // }else{
+                        // standardDegeree = this._linearGradienDegreeValue + 90;
+                        //
+                        // }
+                        standardDegeree = this._linearGradienDegreeValue + 90;
+                        standardDegeree = this._linearGradienDegreeValue; // the non vendor prefix deg is different
+                                                                            // from the vendor prefixed ones argh!
+                                                                            // http://stackoverflow.com/questions/12868704/why-did-firefox-16-change-the-direction-of-my-linear-gradients
 
-                       //  var webkitDegeree = this._linearGradienDegreeValue;
+                        // var webkitDegeree = this._linearGradienDegreeValue;
 
-                        genericGradient = this._gradientType + "( " + this._linearGradienDegreeValue + "deg " + colorStops;
+                        genericGradient =
+                            this._gradientType + "( " + this._linearGradienDegreeValue + "deg " + colorStops;
                         nonVendorGradient = this._gradientType + "( " + standardDegeree + "deg " + colorStops;
-                        
+
                     }
                     genericGradient = genericGradient + ");\r"
                     nonVendorGradient = nonVendorGradient + ");\r"
 
-                    
-//                    console.debug("GradientDesigner#_createCss: moz generic Gradient" + "-moz-" + genericGradient);
-//                    console.debug("GradientDesigner#_createCss: webkit generic Gradient" + "-webkit-" + genericGradient);
-//                    console.debug("GradientDesigner#_createCss: opera generic Gradient" + "-o-" + genericGradient);
-//                    console.debug("GradientDesigner#_createCss: microsoft generic Gradient" + "-ms-" + genericGradient);
-//                    console.debug("GradientDesigner#_createCss: generic Gradient", genericGradient);
+                    // console.debug("GradientDesigner#_createCss: moz generic Gradient" + "-moz-" + genericGradient);
+                    // console.debug("GradientDesigner#_createCss: webkit generic Gradient" + "-webkit-" +
+                    // genericGradient);
+                    // console.debug("GradientDesigner#_createCss: opera generic Gradient" + "-o-" + genericGradient);
+                    // console.debug("GradientDesigner#_createCss: microsoft generic Gradient" + "-ms-" +
+                    // genericGradient);
+                    // console.debug("GradientDesigner#_createCss: generic Gradient", genericGradient);
 
                     // remove the non-vendor prefixed one for now as it uses deg differently
-                    // var styleRules = background + "-moz-" + genericGradient + background + "-webkit-" + genericGradient + background + "-o-" + genericGradient + background + "-ms-" + genericGradient + background + nonVendorGradient;
-                    var styleRules = background + "-moz-" + genericGradient + background + "-webkit-" + genericGradient + background + "-o-" + genericGradient + background + "-ms-" + genericGradient;
+                    // var styleRules = background + "-moz-" + genericGradient + background + "-webkit-" +
+                    // genericGradient + background + "-o-" + genericGradient + background + "-ms-" + genericGradient +
+                    // background + nonVendorGradient;
+                    var styleRules =
+                        background + "-moz-" + genericGradient + background + "-webkit-" + genericGradient + background
+                            + "-o-" + genericGradient + background + "-ms-" + genericGradient;
 
                     this.gradientSlider.updateStylePreview(styleRules);
-
 
                 },
 
@@ -229,7 +233,7 @@ define(
                         height : 180,
                         min : 0,
                         max : 360,
-                        value: 180,
+                        value : 180,
                         majorTicksInterval : 90,
                         minorTicksInterval : 45
                     }, domNode);
@@ -249,7 +253,7 @@ define(
                     array.forEach(eventObject.handels, function (dndObject, i)
                     {
                         // this.myMethod(item);
-//                         console.debug("GradientDesigner#onCreateGradientFromHandles: handle", dndObject.handle)
+                        // console.debug("GradientDesigner#onCreateGradientFromHandles: handle", dndObject.handle)
 
                         var currentColor = domAttr.get(dndObject.handle, "data-color");
                         var currentPos = domAttr.get(dndObject.handle, "data-pos");
