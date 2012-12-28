@@ -25,27 +25,28 @@ body, html {
 .gradient_designer {
   padding: 0 50px 50px;
   overflow: auto;
+  width: 900px;
 }
 
-/* line 25, sass/partials/_gradientDesigner.scss */
+/* line 26, sass/partials/_gradientDesigner.scss */
 .CircularGaugeLinearGradientDegreeContainer {
   padding-right: 40px;
 }
 
-/* line 29, sass/partials/_gradientDesigner.scss */
+/* line 30, sass/partials/_gradientDesigner.scss */
 .CircularGaugeLinearGradientDegreeContainer p {
   margin: 0;
   text-align: center;
 }
 
-/* line 34, sass/partials/_gradientDesigner.scss */
+/* line 35, sass/partials/_gradientDesigner.scss */
 #glossyGauge {
   margin: 0 auto;
   text-align: center;
   width: 180px;
 }
 
-/* line 41, sass/partials/_gradientDesigner.scss */
+/* line 42, sass/partials/_gradientDesigner.scss */
 .gradientPreview {
   border: 1px solid black;
   height: 250px;
@@ -57,24 +58,29 @@ body, html {
   box-shadow: 0 4px 20px 0 #939197;
 }
 
-/* line 50, sass/partials/_gradientDesigner.scss */
+/* line 51, sass/partials/_gradientDesigner.scss */
 .gdContainer {
   float: left;
   margin-right: 30px;
 }
 
-/* line 55, sass/partials/_gradientDesigner.scss */
+/* line 56, sass/partials/_gradientDesigner.scss */
+.gdContainer p {
+  margin-bottom: 0;
+}
+
+/* line 60, sass/partials/_gradientDesigner.scss */
 .codePreview {
   float: left;
   width: 817px;
 }
 
-/* line 60, sass/partials/_gradientDesigner.scss */
+/* line 65, sass/partials/_gradientDesigner.scss */
 .codePreview h2 {
   margin-top: 0;
 }
 
-/* line 65, sass/partials/_gradientDesigner.scss */
+/* line 70, sass/partials/_gradientDesigner.scss */
 pre.prettyprint {
   padding: 14px;
   background-color: #efefef;

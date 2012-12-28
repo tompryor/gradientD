@@ -20,6 +20,7 @@ $spread: 0;
 .gradient_designer {
 	padding: 0 50px 50px;
 	overflow: auto;
+	width: 900px;
 }
 
 .CircularGaugeLinearGradientDegreeContainer {
@@ -50,6 +51,10 @@ $spread: 0;
 .gdContainer {
     float: left;
     margin-right: 30px;
+}
+
+.gdContainer p {
+	margin-bottom: 0;
 }
 
 .codePreview {

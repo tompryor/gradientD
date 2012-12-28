@@ -134,7 +134,9 @@ define(
 //                     console.debug("GradientDesigner#_createCss: _gradientStore", this._gradientStore)
 
                     var genericGradient = "";
-                    var background = "\t background: "
+                    var nonVendorGradient = "";
+
+                    var background = "\t background-image: "
                     var colorStops = "";
                     
                     
@@ -151,10 +153,27 @@ define(
 
                     if (this._gradientType === "linear-gradient")
                     {
+                        var standardDegeree = 0;
+
+//                        if(this._linearGradienDegreeValue > 180){
+//                             standardDegeree = this._linearGradienDegreeValue - 90;
+//
+//                        }else{
+//                             standardDegeree = this._linearGradienDegreeValue + 90;
+//
+//                        }
+                      standardDegeree = this._linearGradienDegreeValue + 90;
+                      standardDegeree = this._linearGradienDegreeValue; // the non vendor prefix deg is different from the vendor prefixed ones argh! http://stackoverflow.com/questions/12868704/why-did-firefox-16-change-the-direction-of-my-linear-gradients
+
+                       //  var webkitDegeree = this._linearGradienDegreeValue;
 
                         genericGradient = this._gradientType + "( " + this._linearGradienDegreeValue + "deg " + colorStops;
+                        nonVendorGradient = this._gradientType + "( " + standardDegeree + "deg " + colorStops;
+                        
                     }
                     genericGradient = genericGradient + ");\r"
+                    nonVendorGradient = nonVendorGradient + ");\r"
+
                     
 //                    console.debug("GradientDesigner#_createCss: moz generic Gradient" + "-moz-" + genericGradient);
 //                    console.debug("GradientDesigner#_createCss: webkit generic Gradient" + "-webkit-" + genericGradient);
@@ -162,8 +181,10 @@ define(
 //                    console.debug("GradientDesigner#_createCss: microsoft generic Gradient" + "-ms-" + genericGradient);
 //                    console.debug("GradientDesigner#_createCss: generic Gradient", genericGradient);
 
-                    var styleRules = background + "-moz-" + genericGradient + background + "-webkit-" + genericGradient + background + "-o-" + genericGradient + background + "-ms-" + genericGradient + background + genericGradient;
-                    
+                    // remove the non-vendor prefixed one for now as it uses deg differently
+                    // var styleRules = background + "-moz-" + genericGradient + background + "-webkit-" + genericGradient + background + "-o-" + genericGradient + background + "-ms-" + genericGradient + background + nonVendorGradient;
+                    var styleRules = background + "-moz-" + genericGradient + background + "-webkit-" + genericGradient + background + "-o-" + genericGradient + background + "-ms-" + genericGradient;
+
                     this.gradientSlider.updateStylePreview(styleRules);
 
 
