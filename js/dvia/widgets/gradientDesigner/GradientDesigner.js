@@ -53,8 +53,15 @@ define(
                 _Widget,
                 _Templated
             ], {
-                _linearGradienDegreeGauge : null,
+                _linearGradientDegreeGauge : null,
                 _linearGradienDegreeValue : null,
+                _radialGradientDegreeGauge : null,
+                _radialGradienDegreeValue : null,
+                _gradientShape : null,
+                _gradientSize : null,
+                _xPosRadial : null,
+                _yPosRadial : null,
+
                 _gradientType : null,
                 _gradientStore : null,
                 _eventHandels : null,
@@ -78,6 +85,11 @@ define(
                         data : []
                     });
                     this._linearGradienDegreeValue = 180;
+                    this._radialGradienDegreeValue = 180;
+                    this._gradientShape = "circle";
+                    this._gradientSize = "closest-side";
+                    this._xPosRadial = 375;
+                    this._yPosRadial = 125;
 
                     this._gradientType = "linear-gradient";
                     // this.ef = dojo.fx.easing["quadInOut"];
@@ -127,65 +139,58 @@ define(
 
                 _createCss : function ()
                 {
-                    // console.debug("GradientDesigner#_createCss: ");
-                    // console.debug("GradientDesigner#_createCss: _linearGradienDegreeValue",
-                    // this._linearGradienDegreeValue)
-                    // console.debug("GradientDesigner#_createCss: _gradientType", this._gradientType)
-                    // console.debug("GradientDesigner#_createCss: _gradientStore", this._gradientStore)
-
                     var genericGradient = "";
                     var nonVendorGradient = "";
+                    var standardDegeree = 0; // the new standard uses different directions for degrees
 
-                    var background = "\t background-image: "
+                    var background = "\t background-image: ";
                     var colorStops = "";
 
                     this._gradientStore.query(function (object)
                     {
-                        // return object.id > 1;
-                        // console.debug("GradientDesigner#_createCss: _gradientStore object",object);
+                        colorStops = colorStops + ", " + object.currentColor + " " + object.currentPos + "%";
 
-                        colorStops = colorStops + ", " + object.currentColor + " " + object.currentPos + "%"
+                    });
 
-                    }) // Pass a function to do more complex querying
-
-                    if (this._gradientType === "linear-gradient")
+                    if (this._gradientType === "linear-gradient" || this._gradientType === "repeating-linear-gradient")
                     {
-                        var standardDegeree = 0;
 
-                        // if(this._linearGradienDegreeValue > 180){
-                        // standardDegeree = this._linearGradienDegreeValue - 90;
-                        //
-                        // }else{
-                        // standardDegeree = this._linearGradienDegreeValue + 90;
-                        //
-                        // }
                         standardDegeree = this._linearGradienDegreeValue + 90;
                         standardDegeree = this._linearGradienDegreeValue; // the non vendor prefix deg is different
-                                                                            // from the vendor prefixed ones argh!
-                                                                            // http://stackoverflow.com/questions/12868704/why-did-firefox-16-change-the-direction-of-my-linear-gradients
-
-                        // var webkitDegeree = this._linearGradienDegreeValue;
+                        // from the vendor prefixed ones argh!
+                        // http://stackoverflow.com/questions/12868704/why-did-firefox-16-change-the-direction-of-my-linear-gradients
 
                         genericGradient =
                             this._gradientType + "( " + this._linearGradienDegreeValue + "deg " + colorStops;
-                        nonVendorGradient = this._gradientType + "( " + standardDegeree + "deg " + colorStops;
+                        // nonVendorGradient = this._gradientType + "( " + standardDegeree + "deg " + colorStops;
+
+                        // remove the non-vendor prefixed one for now as it uses deg differently
+                        // var styleRules = background + "-moz-" + genericGradient + background + "-webkit-" +
+                        // genericGradient + background + "-o-" + genericGradient + background + "-ms-" +
+                        // genericGradient +
+                        // background + nonVendorGradient;
+                    }
+                    else
+                    {
+                        if (this._gradientShape === "circleNoDegreeSupport")
+                        {
+                            genericGradient =
+                                this._gradientType + "( " + this._xPosRadial + "px " + this._yPosRadial + "px "
+                                    + this._radialGradienDegreeValue + "deg, " + this._gradientShape + " "
+                                    + this._gradientSize + " " + colorStops;
+                            // nonVendorGradient = this._gradientType + "( " + standardDegeree + "deg " + colorStops;
+                        }
+                        else
+                        {
+                            genericGradient =
+                                this._gradientType + "( " + this._xPosRadial + "px " + this._yPosRadial + "px, "
+                                    + this._gradientShape + " " + this._gradientSize + " " + colorStops;
+                        }
 
                     }
                     genericGradient = genericGradient + ");\r"
-                    nonVendorGradient = nonVendorGradient + ");\r"
+                    // nonVendorGradient = nonVendorGradient + ");\r"
 
-                    // console.debug("GradientDesigner#_createCss: moz generic Gradient" + "-moz-" + genericGradient);
-                    // console.debug("GradientDesigner#_createCss: webkit generic Gradient" + "-webkit-" +
-                    // genericGradient);
-                    // console.debug("GradientDesigner#_createCss: opera generic Gradient" + "-o-" + genericGradient);
-                    // console.debug("GradientDesigner#_createCss: microsoft generic Gradient" + "-ms-" +
-                    // genericGradient);
-                    // console.debug("GradientDesigner#_createCss: generic Gradient", genericGradient);
-
-                    // remove the non-vendor prefixed one for now as it uses deg differently
-                    // var styleRules = background + "-moz-" + genericGradient + background + "-webkit-" +
-                    // genericGradient + background + "-o-" + genericGradient + background + "-ms-" + genericGradient +
-                    // background + nonVendorGradient;
                     var styleRules =
                         background + "-moz-" + genericGradient + background + "-webkit-" + genericGradient + background
                             + "-o-" + genericGradient + background + "-ms-" + genericGradient;
@@ -197,20 +202,21 @@ define(
                 _setUpGauges : function ()
                 {
 
-                    this._createLinearGradienDegreeGauge()
+                    this._createLinearGradientDegreeGauge();
+                    this._createRadialGradientDegreeGauge();
 
                 },
 
-                _createLinearGradienDegreeGauge : function ()
+                _createLinearGradientDegreeGauge : function ()
                 {
-                    this._linearGradienDegreeGauge =
-                        this._createGradienDegreeGauge(dom.byId("CircularGaugeLinearGradientDegree"));
+                    this._linearGradientDegreeGauge =
+                        this._createGradientDegreeGauge(dom.byId("CircularGaugeLinearGradientDegree"));
 
-                    this._linearGradienDegreeGauge.startup();
+                    this._linearGradientDegreeGauge.startup();
 
-                    aspect.after(this._linearGradienDegreeGauge, "onValueChanged", lang.hitch(this, function ()
+                    aspect.after(this._linearGradientDegreeGauge, "onValueChanged", lang.hitch(this, function ()
                     {
-                        this._linearGradienDegreeValue = this._linearGradienDegreeGauge.value;
+                        this._linearGradienDegreeValue = this._linearGradientDegreeGauge.value;
 
                         this._createCss();
 
@@ -218,7 +224,24 @@ define(
 
                 },
 
-                _createGradienDegreeGauge : function (domNode)
+                _createRadialGradientDegreeGauge : function ()
+                {
+                    this._radialGradientDegreeGauge =
+                        this._createGradientDegreeGauge(dom.byId("CircularGaugeRadialGradientDegree"));
+
+                    this._radialGradientDegreeGauge.startup();
+
+                    aspect.after(this._radialGradientDegreeGauge, "onValueChanged", lang.hitch(this, function ()
+                    {
+                        this._radialGradienDegreeValue = this._radialGradientDegreeGauge.value;
+
+                        this._createCss();
+
+                    }), true);
+
+                },
+
+                _createGradientDegreeGauge : function (domNode)
                 {
                     return new GlossyCircularGauge({
                         background : [
@@ -228,7 +251,7 @@ define(
                             0
                         ],
                         title : 'Degrees',
-                        id : "glossyGauge",
+                        "class" : "glossyGauge",
                         width : 180,
                         height : 180,
                         min : 0,
@@ -249,15 +272,11 @@ define(
 
                 onCreateGradientFromHandles : function (eventObject)
                 {
-                    // console.debug("GradientDesigner: handle event onCreateGradientFromHandles", handels)
                     array.forEach(eventObject.handels, function (dndObject, i)
                     {
-                        // this.myMethod(item);
-                        // console.debug("GradientDesigner#onCreateGradientFromHandles: handle", dndObject.handle)
-
                         var currentColor = domAttr.get(dndObject.handle, "data-color");
                         var currentPos = domAttr.get(dndObject.handle, "data-pos");
-                        this.updateModel({
+                        this._updateModel({
                             id : i,
                             currentColor : currentColor,
                             currentPos : currentPos
@@ -269,20 +288,16 @@ define(
 
                 },
 
-                updateModel : function (gradientValuesObject)
+                _updateModel : function (gradientValuesObject)
                 {
-                    // console.debug("GradientDesigner: updateModel", gradientValuesObject)
                     this._gradientStore.put(gradientValuesObject); // store the object with the given identity
-                    // console.debug("GradientDesigner#updateModel: _gradientStore", this._gradientStore)
 
                 },
 
-                onGradientTypeChange : function (e)
+                _onGradientTypeChange : function (e)
                 {
-                    // console.debug("GradientDesigner#onGradientTypeChange: event", e)
-                    // console.debug("GradientDesigner#onGradientTypeChange: currentTarget", e.currentTarget)
-                    // console.debug("GradientDesigner#onGradientTypeChange: value", e.currentTarget.value)
-                    if (e.currentTarget.value === "linear-gradient")
+                    if (e.currentTarget.value === "linear-gradient"
+                        || e.currentTarget.value === "repeating-linear-gradient")
                     {
                         domClass.add(this.radialGradient, "noDisplay");
                         domClass.remove(this.linearGradient, "noDisplay");
@@ -294,10 +309,87 @@ define(
                     }
 
                     this._gradientType = e.currentTarget.value;
-                    this._gradientType = "linear-gradient";
 
                     this._createCss();
 
+                },
+
+                _onGradientShapeChange : function (e)
+                {
+                    if (e.currentTarget.value === "ellipse")
+                    {
+                        domClass.add(this.circularGaugeRadialGradientDegreeContainer, "noDisplay");
+                    }
+                    else
+                    {
+                        // domClass.remove(this.circularGaugeRadialGradientDegreeContainer, "noDisplay");
+                        domClass.add(this.circularGaugeRadialGradientDegreeContainer, "noDisplay");
+
+                    }
+
+                    this._gradientShape = e.currentTarget.value;
+
+                    this._createCss();
+
+                },
+
+                _onGradientSizeChange : function (e)
+                {
+                    this._gradientSize = e.currentTarget.value;
+
+                    this._createCss();
+
+                },
+
+                _onxPosRadialChange : function (e)
+                {
+                    this._xPosRadial = e.currentTarget.value;
+
+                    this._createCss();
+
+                },
+
+                _onyPosRadialChange : function (e)
+                {
+                    this._yPosRadial = e.currentTarget.value;
+
+                    this._createCss();
+
+                },
+
+                _onPosRadialKeyDown : function (e)
+                {
+
+                    var currentValue = Number(e.currentTarget.value);
+                    var newValue = currentValue;
+
+                    if (e.keyCode === 38)
+                    {
+                        // add
+                        newValue = newValue + 1;
+
+                    }
+                    else if (e.keyCode === 40)
+                    {
+                        // subtract
+                        if (newValue > 0)
+                        {
+                            newValue = newValue - 1;
+                        }
+                        else
+                        {
+                            return;
+                        }
+
+                    }
+
+                    e.currentTarget.value = "" + newValue;
+
+                    // update the class prop
+                    this["_" + e.currentTarget.id] = "" + newValue;
+
+                    // update the css
+                    this._createCss();
                 }
 
             });

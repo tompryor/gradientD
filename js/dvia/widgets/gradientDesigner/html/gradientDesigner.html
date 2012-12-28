@@ -13,12 +13,18 @@
 
 
 		<h2 class="gradientType">Gradient Type:</h2>
-		<select data-dojo-attach-event="onchange: onGradientTypeChange">
+		<select data-dojo-attach-event="onchange: _onGradientTypeChange">
 			<option value="linear-gradient">Linear Gradient</option>
+			<option value="repeating-linear-gradient">Repeating Linear Gradient</option>
 			<option value="radial-gradient">Radial Gradient</option>
+			<option value="repeating-radial-gradient">Repeating Radial Gradient</option>
+			
 		</select>
+
+		<!-- Linear Gradient Options -->
+
 		<div class="gradientOptions" data-dojo-attach-point="linearGradient">
-			<div class="CircularGaugeLinearGradientDegreeContainer">
+			<div class="circularGaugeLinearGradientDegreeContainer">
 				<p>
 					<strong>Gradient Direction</strong>
 				</p>
@@ -27,15 +33,37 @@
 
 
 		</div>
+
+		<!-- Radial Gradient Options -->
+
 		<div class="gradientOptions noDisplay"
 			data-dojo-attach-point="radialGradient">
-			<p>
-			<h3>radial-gradient options</h3>
+			<label for="shape">Choose your Shape</label> <select
+				name="shape" id="shape"
+				data-dojo-attach-event="onchange: _onGradientShapeChange">
+				<option value="circle">Circle</option>
+				<option value="ellipse">Ellipse</option>
+			</select>
+			
+			<label for="xPosRadial">Set horizontal position</label> <input title="You can also use the up/down arrow keys to change the value." type="text" id="xPosRadial" data-dojo-attach-event="onblur: _onxPosRadialChange, onkeydown: _onPosRadialKeyDown" value="375" maxlength="3" size="2">
+			<label for="yPosRadial">Set vertical position</label> <input title="You can also use the up/down arrow keys to change the value." type="text" id="yPosRadial" data-dojo-attach-event="onblur: _onyPosRadialChange, onkeydown: _onPosRadialKeyDown" value="125" maxlength="3" size="2">
+			
 
-			<p>NOT YET IMPLIMENTED</p>
+			<label for="endingSize">Choose your size</label> <select
+				name="endingSize" id="endingSize"
+				data-dojo-attach-event="onchange: _onGradientSizeChange">
+				<option title="The gradient's ending shape meets the side of the box closest to its center (for circles) or meets both the vertical and horizontal sides closest to the center (for ellipses)." value="closest-side">Closest Side</option>
+				<option title="The gradient's ending shape is sized so it exactly meets the closest corner of the box from its center." value="closest-corner">Closest Corner</option>
+				<option title="Similar to closest-side, except the ending shape is sized to meet the side of the box farthest from its center (or vertical and horizontal sides)." value="farthest-side">Farthest Side</option>
+				<option title="The gradient's ending shape is sized so it exactly meets the farthest corner of the box from its center." value="farthest-corner">Farthest Corner</option>
+			</select>
 
-
-			</p>
+			<div class="circularGaugeRadialGradientDegreeContainer noDisplay" data-dojo-attach-point="circularGaugeRadialGradientDegreeContainer">
+				<p>
+					<strong>Gradient Direction</strong>
+				</p>
+				<div id="CircularGaugeRadialGradientDegree"></div>
+			</div>
 
 		</div>
 

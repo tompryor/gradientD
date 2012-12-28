@@ -23,16 +23,16 @@ $spread: 0;
 	width: 900px;
 }
 
-.CircularGaugeLinearGradientDegreeContainer {
+.circularGaugeLinearGradientDegreeContainer, .circularGaugeRadialGradientDegreeContainer {
 	padding-right: 40px;
 }
 
-.CircularGaugeLinearGradientDegreeContainer p {
+.circularGaugeLinearGradientDegreeContainer p, .circularGaugeRadialGradientDegreeContainer p {
     margin: 0;
     text-align: center;
 }
 
-#glossyGauge {
+.glossyGauge {
     margin: 0 auto;
     text-align: center;
     width: 180px;

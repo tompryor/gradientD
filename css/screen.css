@@ -29,18 +29,18 @@ body, html {
 }
 
 /* line 26, sass/partials/_gradientDesigner.scss */
-.CircularGaugeLinearGradientDegreeContainer {
+.circularGaugeLinearGradientDegreeContainer, .circularGaugeRadialGradientDegreeContainer {
   padding-right: 40px;
 }
 
 /* line 30, sass/partials/_gradientDesigner.scss */
-.CircularGaugeLinearGradientDegreeContainer p {
+.circularGaugeLinearGradientDegreeContainer p, .circularGaugeRadialGradientDegreeContainer p {
   margin: 0;
   text-align: center;
 }
 
 /* line 35, sass/partials/_gradientDesigner.scss */
-#glossyGauge {
+.glossyGauge {
   margin: 0 auto;
   text-align: center;
   width: 180px;
