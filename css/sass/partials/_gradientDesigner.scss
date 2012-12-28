@@ -9,12 +9,32 @@ $spread: 0;
 }
 
 .gradientOptions {
-	margin: 12px;
+	// margin: 12px;
+	
+}
+
+.gradientType {
+	display: inline-block;
 }
 
 .gradient_designer {
-	padding: 0 50px 50px;;
+	padding: 0 50px 50px;
 	overflow: auto;
+}
+
+.CircularGaugeLinearGradientDegreeContainer {
+	padding-right: 40px;
+}
+
+.CircularGaugeLinearGradientDegreeContainer p {
+    margin: 0;
+    text-align: center;
+}
+
+#glossyGauge {
+    margin: 0 auto;
+    text-align: center;
+    width: 180px;
 }
 
 
@@ -35,8 +55,10 @@ $spread: 0;
 .codePreview {
   float: left;
   width: 940px;
-  
+}
 
+.codePreview h2 {
+	margin-top: 0;
 }
 
 
