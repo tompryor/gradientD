@@ -21,7 +21,7 @@ Requirements
 
 TODO
 -----
-* Currently only supports vertical gradients, add support for radial.
+* ~~Currently only supports vertical gradients, add support for radial.~~
 * Add Sass support.
 * Add better support for older IE browsers.
 
